@@ -14,6 +14,7 @@
   --mute:#a39d93;
   --mute-dark:#6b6459;
   --gold:#b07d3a;
+  --gold-text:#7d5623;  /* small text on any light surface */
   --gold-deep:#8c6028;  /* passes WCAG AA behind white text and as small text on paper */
   --gold-2:#d9a85f;
   --gold-glow:rgba(176,125,58,.35);
@@ -166,7 +167,7 @@ html[lang="ar"] .hero-stats span{letter-spacing:0;font-size:14px}
 .section{position:relative;padding-block:clamp(90px,12vw,180px)}
 .section.light{background:var(--paper);color:var(--ink)}
 .section.light .lead{color:#3c4a54}
-.section.light .eyebrow{color:var(--gold-deep)}
+.section.light .eyebrow{color:var(--gold-text)}
 .section.light .accent,.statement-text .accent,.office h3 .accent{color:var(--gold-deep)}
 .section.steel{background:var(--ink-2)}
 .sec-head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,110px);align-items:end;margin-bottom:clamp(50px,7vw,100px)}
@@ -686,3 +687,5 @@ html[lang="ar"] .page-hero h1{padding-bottom:.06em}
 .map-load:hover{border-color:var(--gold);background:var(--steel)}
 .map-load svg{width:30px;height:30px;stroke:var(--gold-2);fill:none;stroke-width:1.5}
 .map-load small{font-weight:500;font-size:13px;color:var(--mute)}
+
+.office .tag{color:var(--gold-deep)}
