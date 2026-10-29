@@ -397,7 +397,7 @@
 
   function renderLogin(error = '') {
     app.innerHTML = `<div class="login"><form class="login-card" data-form="login">
-        <img class="login-logo" src="${IMG}logo-dark.png" alt="Advanced Engineering House">
+        <img class="login-logo" src="${IMG}logo-dark.png" alt="Rukn Al Taqadom">
         <h1>${esc(t('adminTitle'))}</h1>
         <p class="muted">${esc(t('loginHint'))}</p>
         <label class="stack">${esc(t('email'))}<input name="email" type="email" required autocomplete="username" dir="ltr"></label>
@@ -421,7 +421,7 @@
     ];
     app.innerHTML = `<div class="shell">
       <aside class="side">
-        <img class="side-logo" src="${IMG}logo-light.png" alt="Advanced Engineering House">
+        <img class="side-logo" src="${IMG}logo-light.png" alt="Rukn Al Taqadom">
         <nav>${nav.map(([v, n]) => `<button class="nav-item ${S.view === v ? 'active' : ''}" data-action="nav" data-view="${v}">${esc(t(v))}${n != null ? `<span class="count">${n}</span>` : ''}</button>`).join('')}</nav>
         <div class="side-foot">${langToggle()}
           <a class="side-link" href="../${uiLang === 'ar' ? 'ar/' : ''}" target="_blank" rel="noopener">${esc(t('viewSite'))} ↗</a>
