@@ -1,0 +1,26 @@
+{
+  "company": {
+    "en": "Rukn Al Taqadom Construction & Engineering L.L.C",
+    "ar": "ركن التقدم للمقاولات والهندسة ذ.م.م"
+  },
+  "city": {
+    "en": "Dubai",
+    "ar": "دبي"
+  },
+  "address": {
+    "en": "Dubai\nUnited Arab Emirates",
+    "ar": "دبي\nالإمارات العربية المتحدة"
+  },
+  "shortAddress": "",
+  "phone": "+966 59 006 8070",
+  "phoneDigits": "966590068070",
+  "emailPrimary": "info@house-engineering.com",
+  "emailSecondary": "suleiman@house-engineering.com",
+  "hours": {
+    "en": "Mon – Sat · 8:00 AM – 6:00 PM",
+    "ar": "الاثنين – السبت · 8:00 ص – 6:00 م"
+  },
+  "linkedin": "",
+  "facebook": "",
+  "founded": ""
+}

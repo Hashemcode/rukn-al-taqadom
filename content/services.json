@@ -1,0 +1,263 @@
+[
+  {
+    "id": "construction",
+    "image": "p-quarter-hotel.webp",
+    "focus": "50% 45%",
+    "title": { "en": "General Construction", "ar": "المقاولات العامة" },
+    "tags": { "en": "Civil · Structural · Concrete", "ar": "المدني · الإنشائي · الخرسانة" },
+    "summary": {
+      "en": "Main-contract construction from excavation to handover — towers, factories, villas and commercial buildings.",
+      "ar": "مقاولات رئيسية من الحفر حتى التسليم — أبراج ومصانع وفلل ومبانٍ تجارية."
+    },
+    "paragraphs": [
+      {
+        "en": "We take buildings from an empty plot to a completed, authority-approved asset: excavation and shoring, foundations, reinforced concrete frames, blockwork and external works.",
+        "ar": "ننفذ المباني من أرض فضاء إلى منشأة مكتملة ومعتمدة من الجهات الرسمية: الحفر والتدعيم والأساسات والهياكل الخرسانية المسلحة وأعمال البلوك والأعمال الخارجية."
+      },
+      {
+        "en": "A single contract covers structure, finishes and services, so responsibility for programme, quality and safety sits with one team instead of being split between trades.",
+        "ar": "يشمل العقد الواحد الهيكل والتشطيبات والخدمات، فتبقى مسؤولية البرنامج الزمني والجودة والسلامة لدى فريق واحد بدلاً من توزيعها بين المقاولين."
+      }
+    ],
+    "points": [
+      { "en": "Excavation, shoring & foundations", "ar": "الحفر والتدعيم والأساسات" },
+      { "en": "Reinforced concrete structures", "ar": "الهياكل الخرسانية المسلحة" },
+      { "en": "Blockwork & plastering", "ar": "أعمال البلوك والتلييس" },
+      { "en": "Steel structures & roofing", "ar": "الهياكل المعدنية والأسقف" },
+      { "en": "External & site works", "ar": "الأعمال الخارجية وأعمال الموقع" },
+      { "en": "Authority approvals & handover", "ar": "اعتمادات الجهات والتسليم" }
+    ]
+  },
+  {
+    "id": "fitout",
+    "image": "p-kempinski.webp",
+    "focus": "50% 45%",
+    "title": { "en": "Fit-Out & Finishes", "ar": "التشطيبات والديكور الداخلي" },
+    "tags": { "en": "Interiors · Joinery · Turnkey", "ar": "الديكور · النجارة · تسليم مفتاح" },
+    "summary": {
+      "en": "Turnkey interiors for hotels, restaurants, offices, clinics and retail — delivered to programme.",
+      "ar": "تشطيبات داخلية متكاملة للفنادق والمطاعم والمكاتب والعيادات والمتاجر — تُسلَّم في موعدها."
+    },
+    "paragraphs": [
+      {
+        "en": "Our fit-out teams deliver complete interiors: partitions and ceilings, flooring, joinery, glazing, painting and specialist finishes, coordinated with the MEP works behind them.",
+        "ar": "تنفذ فرق التشطيبات لدينا الديكورات الداخلية كاملة: القواطع والأسقف والأرضيات والنجارة والزجاج والدهانات والتشطيبات الخاصة، بالتنسيق مع الأنظمة الكهروميكانيكية خلفها."
+      },
+      {
+        "en": "Commercial interiors live or die by the programme. We sequence finishes around services so the handover date survives contact with site reality.",
+        "ar": "نجاح التشطيبات التجارية مرهون بالبرنامج الزمني. ننظّم تسلسل التشطيبات حول الخدمات ليبقى موعد التسليم قابلاً للتحقيق على أرض الواقع."
+      }
+    ],
+    "points": [
+      { "en": "Partitions, ceilings & flooring", "ar": "القواطع والأسقف والأرضيات" },
+      { "en": "Joinery & custom millwork", "ar": "النجارة والأعمال الخشبية الخاصة" },
+      { "en": "Glazing & aluminium works", "ar": "أعمال الزجاج والألمنيوم" },
+      { "en": "Painting & decorative finishes", "ar": "الدهانات والتشطيبات الزخرفية" },
+      { "en": "Kitchens & specialist areas", "ar": "المطابخ والمناطق المتخصصة" },
+      { "en": "Snagging & handover", "ar": "معالجة الملاحظات والتسليم" }
+    ]
+  },
+  {
+    "id": "mep",
+    "image": "mep-pipes.webp",
+    "focus": "50% 50%",
+    "title": { "en": "MEP Works", "ar": "الأعمال الكهروميكانيكية" },
+    "tags": { "en": "Mechanical · Electrical · Plumbing", "ar": "الميكانيكا · الكهرباء · السباكة" },
+    "summary": {
+      "en": "Full mechanical, electrical and plumbing installation — the group's founding discipline.",
+      "ar": "تنفيذ متكامل للأنظمة الميكانيكية والكهربائية والسباكة — التخصص الذي قامت عليه المجموعة."
+    },
+    "paragraphs": [
+      {
+        "en": "MEP is where our group began. We design, supply and install air conditioning, ventilation, power, lighting, water supply and drainage for buildings of every scale.",
+        "ar": "بدأت مجموعتنا من الأنظمة الكهروميكانيكية. نصمم ونورد ونركّب أنظمة التكييف والتهوية والطاقة والإنارة وإمداد المياه والصرف لمبانٍ بمختلف أحجامها."
+      },
+      {
+        "en": "Because the same group executes the structure and the services, clashes are resolved on the drawing board instead of on site.",
+        "ar": "ولأن المجموعة نفسها تنفذ الهيكل والخدمات، تُحل التعارضات على لوحة التصميم بدلاً من الموقع."
+      }
+    ],
+    "points": [
+      { "en": "HVAC, chillers & VRF systems", "ar": "التكييف والمبردات وأنظمة VRF" },
+      { "en": "Electrical distribution & panels", "ar": "التوزيع الكهربائي واللوحات" },
+      { "en": "Lighting & small power", "ar": "الإنارة والطاقة الصغيرة" },
+      { "en": "Water supply, drainage & pumps", "ar": "إمداد المياه والصرف والمضخات" },
+      { "en": "Ductwork & ventilation", "ar": "مجاري الهواء والتهوية" },
+      { "en": "Testing & commissioning", "ar": "الاختبار والتشغيل" }
+    ]
+  },
+  {
+    "id": "infrastructure",
+    "image": "pipework.webp",
+    "focus": "50% 50%",
+    "title": { "en": "Infrastructure & Utilities", "ar": "البنية التحتية والمرافق" },
+    "tags": { "en": "Networks · Piping · Site services", "ar": "الشبكات · الأنابيب · خدمات الموقع" },
+    "summary": {
+      "en": "Below-ground networks that connect a development to power, water and drainage.",
+      "ar": "شبكات تحت الأرض تربط المشروع بالكهرباء والمياه والصرف."
+    },
+    "paragraphs": [
+      {
+        "en": "We install the utility backbone of a site: HDPE and ductile piping, drainage and sewer lines, pump stations, cable routes, manholes and chambers.",
+        "ar": "ننفذ العمود الفقري للمرافق في الموقع: أنابيب HDPE والحديد المطيل، وخطوط الصرف والمجاري، ومحطات الضخ، ومسارات الكابلات، وغرف التفتيش."
+      },
+      {
+        "en": "Infrastructure is unforgiving: it is buried, inspected and expensive to revisit. We build it to survive the life of the development.",
+        "ar": "البنية التحتية لا تحتمل الخطأ: فهي مدفونة وخاضعة للفحص وتكلفة إعادتها عالية. ننفذها لتدوم طوال عمر المشروع."
+      }
+    ],
+    "points": [
+      { "en": "HDPE & ductile iron piping", "ar": "أنابيب HDPE والحديد المطيل" },
+      { "en": "Storm & foul drainage", "ar": "صرف الأمطار والصرف الصحي" },
+      { "en": "Pump stations & tanks", "ar": "محطات الضخ والخزانات" },
+      { "en": "Cable trenching & ducting", "ar": "خنادق الكابلات والمواسير" },
+      { "en": "Manholes & chambers", "ar": "غرف التفتيش والمناهل" },
+      { "en": "Road reinstatement", "ar": "إعادة تأهيل الطرق" }
+    ]
+  },
+  {
+    "id": "fire",
+    "image": "fire-room.webp",
+    "focus": "50% 50%",
+    "title": { "en": "Firefighting & Life Safety", "ar": "مكافحة الحريق وسلامة الأرواح" },
+    "tags": { "en": "Sprinklers · FM-200 · Alarm", "ar": "الرشاشات · FM-200 · الإنذار" },
+    "summary": {
+      "en": "Civil-defence-compliant fire protection, from sprinklers to clean-agent suppression.",
+      "ar": "حماية من الحريق مطابقة لاشتراطات الدفاع المدني، من الرشاشات إلى أنظمة الإطفاء النظيفة."
+    },
+    "paragraphs": [
+      {
+        "en": "We install sprinkler networks, hose reels, fire pumps, detection and alarm systems, and clean-agent suppression for generator rooms, data rooms and kitchens.",
+        "ar": "ننفذ شبكات الرشاشات وبكرات الخراطيم ومضخات الحريق وأنظمة الكشف والإنذار وأنظمة الإطفاء النظيفة لغرف المولدات وغرف البيانات والمطابخ."
+      },
+      {
+        "en": "Every system is installed for inspection and approval, with testing and commissioning documented for the authorities.",
+        "ar": "يُنفَّذ كل نظام ليجتاز الفحص والاعتماد، مع توثيق الاختبار والتشغيل للجهات المختصة."
+      }
+    ],
+    "points": [
+      { "en": "Sprinkler & hose-reel networks", "ar": "شبكات الرشاشات وبكرات الخراطيم" },
+      { "en": "Fire pumps & tanks", "ar": "مضخات الحريق والخزانات" },
+      { "en": "FM-200 & clean agent systems", "ar": "أنظمة FM-200 والإطفاء النظيف" },
+      { "en": "Detection & alarm panels", "ar": "لوحات الكشف والإنذار" },
+      { "en": "Kitchen suppression", "ar": "أنظمة إطفاء المطابخ" },
+      { "en": "Civil defence approvals", "ar": "اعتمادات الدفاع المدني" }
+    ]
+  },
+  {
+    "id": "electrical",
+    "image": "electrical.webp",
+    "focus": "40% 35%",
+    "title": { "en": "Electrical & Power", "ar": "الكهرباء والطاقة" },
+    "tags": { "en": "LV · Panels · Generators", "ar": "الجهد المنخفض · اللوحات · المولدات" },
+    "summary": {
+      "en": "Power distribution, panels, lighting and standby generation, tested and certified.",
+      "ar": "توزيع الطاقة واللوحات والإنارة والمولدات الاحتياطية، مع الاختبار والاعتماد."
+    },
+    "paragraphs": [
+      {
+        "en": "From the incoming supply to the last socket: main and sub distribution boards, cabling and containment, lighting, earthing and standby generators.",
+        "ar": "من نقطة التغذية الرئيسية حتى آخر مقبس: اللوحات الرئيسية والفرعية، والكابلات ومساراتها، والإنارة، والتأريض، والمولدات الاحتياطية."
+      },
+      {
+        "en": "Our electrical teams work to approved drawings and hand over with full test results and as-built documentation.",
+        "ar": "تعمل فرقنا الكهربائية وفق مخططات معتمدة، وتسلّم الأعمال مع نتائج الاختبارات الكاملة ومخططات ما بعد التنفيذ."
+      }
+    ],
+    "points": [
+      { "en": "Main & sub distribution boards", "ar": "اللوحات الرئيسية والفرعية" },
+      { "en": "Cabling, trunking & conduits", "ar": "الكابلات والمجاري والمواسير" },
+      { "en": "Internal & external lighting", "ar": "الإنارة الداخلية والخارجية" },
+      { "en": "Earthing & lightning protection", "ar": "التأريض والحماية من الصواعق" },
+      { "en": "Standby generators & changeover", "ar": "المولدات الاحتياطية ولوحات التحويل" },
+      { "en": "Testing & certification", "ar": "الاختبار والاعتماد" }
+    ]
+  },
+  {
+    "id": "hvac",
+    "image": "hvac-engineer.webp",
+    "focus": "70% 40%",
+    "title": { "en": "HVAC & Ventilation", "ar": "التكييف والتهوية" },
+    "tags": { "en": "Chillers · VRF · Ductwork", "ar": "المبردات · VRF · مجاري الهواء" },
+    "summary": {
+      "en": "Air conditioning built for Gulf heat — chilled water, VRF, package units and ventilation.",
+      "ar": "تكييف مصمم لحرارة الخليج — المياه المبردة وأنظمة VRF والوحدات المجمعة والتهوية."
+    },
+    "paragraphs": [
+      {
+        "en": "In this climate, cooling is not comfort — it is the condition for a building to operate at all. We install chilled-water plants, VRF systems, package units, air handling units and full ventilation networks.",
+        "ar": "في هذا المناخ لا يُعد التبريد رفاهية، بل شرطاً لتشغيل المبنى أصلاً. ننفذ محطات المياه المبردة وأنظمة VRF والوحدات المجمعة ووحدات مناولة الهواء وشبكات التهوية الكاملة."
+      },
+      {
+        "en": "Systems are balanced and commissioned so performance on day one matches the design intent — and stays there.",
+        "ar": "تُوزَّن الأنظمة وتُشغَّل بحيث يطابق أداؤها من اليوم الأول ما صُممت لأجله — ويستمر كذلك."
+      }
+    ],
+    "points": [
+      { "en": "Chilled water plants & pumps", "ar": "محطات المياه المبردة والمضخات" },
+      { "en": "VRF & split systems", "ar": "أنظمة VRF والوحدات المنفصلة" },
+      { "en": "Package & concealed units", "ar": "الوحدات المجمعة والمخفية" },
+      { "en": "Air handling & fresh air", "ar": "مناولة الهواء والهواء النقي" },
+      { "en": "Ductwork, grilles & diffusers", "ar": "مجاري الهواء والفتحات والناشرات" },
+      { "en": "Air & water balancing", "ar": "موازنة الهواء والمياه" }
+    ]
+  },
+  {
+    "id": "management",
+    "image": "engineers-site.webp",
+    "focus": "60% 50%",
+    "title": { "en": "Project Management", "ar": "إدارة المشاريع" },
+    "tags": { "en": "Programme · Cost · Quality", "ar": "البرنامج · التكلفة · الجودة" },
+    "summary": {
+      "en": "Engineers who plan, cost and control the work — not just execute it.",
+      "ar": "مهندسون يخططون ويقدّرون ويضبطون العمل — لا ينفذونه فحسب."
+    },
+    "paragraphs": [
+      {
+        "en": "Each project is run by engineers who own the programme, the budget and the quality file: method statements, shop drawings, procurement, inspection requests and progress reporting.",
+        "ar": "يدير كل مشروع مهندسون يتحملون مسؤولية البرنامج الزمني والميزانية وملف الجودة: طرق التنفيذ والمخططات التنفيذية والمشتريات وطلبات الفحص وتقارير التقدم."
+      },
+      {
+        "en": "We analyse every line of the specification before pricing it, so the number we give you is the number the project is built to.",
+        "ar": "نحلل كل بند في المواصفات قبل تسعيره، ليكون الرقم الذي نقدمه هو الرقم الذي يُنفَّذ به المشروع."
+      }
+    ],
+    "points": [
+      { "en": "Estimation & value engineering", "ar": "التقدير وهندسة القيمة" },
+      { "en": "Programme & resource planning", "ar": "تخطيط البرنامج والموارد" },
+      { "en": "Shop drawings & approvals", "ar": "المخططات التنفيذية والاعتمادات" },
+      { "en": "Procurement & logistics", "ar": "المشتريات والإمداد" },
+      { "en": "QA/QC & HSE on site", "ar": "ضبط الجودة والسلامة في الموقع" },
+      { "en": "Progress reporting", "ar": "تقارير التقدم" }
+    ]
+  },
+  {
+    "id": "maintenance",
+    "image": "maintenance.webp",
+    "focus": "50% 50%",
+    "title": { "en": "Maintenance & Facilities", "ar": "الصيانة وإدارة المرافق" },
+    "tags": { "en": "Planned · Reactive · Contracts", "ar": "وقائية · طارئة · عقود" },
+    "summary": {
+      "en": "Planned and reactive maintenance that protects the asset after handover.",
+      "ar": "صيانة وقائية وطارئة تحمي الأصل بعد التسليم."
+    },
+    "paragraphs": [
+      {
+        "en": "We maintain what we build and what others built: annual contracts covering HVAC, electrical, plumbing and fire systems, with planned visits and a reactive call-out service.",
+        "ar": "نصون ما نبنيه وما بناه غيرنا: عقود سنوية تشمل التكييف والكهرباء والسباكة وأنظمة الحريق، مع زيارات مجدولة وخدمة استجابة للأعطال الطارئة."
+      },
+      {
+        "en": "Operating buildings cannot stop for repairs, so our teams work around occupancy and report on what was done.",
+        "ar": "لا تستطيع المباني التشغيلية التوقف للإصلاح، لذا تعمل فرقنا وفق جدول الإشغال وتوثق ما تم تنفيذه."
+      }
+    ],
+    "points": [
+      { "en": "Annual maintenance contracts", "ar": "عقود الصيانة السنوية" },
+      { "en": "Planned preventative visits", "ar": "زيارات الصيانة الوقائية" },
+      { "en": "Reactive call-outs", "ar": "الاستجابة للأعطال الطارئة" },
+      { "en": "System upgrades & replacement", "ar": "تحديث واستبدال الأنظمة" },
+      { "en": "Performance testing", "ar": "اختبار الأداء" },
+      { "en": "Facilities support", "ar": "دعم إدارة المرافق" }
+    ]
+  }
+]

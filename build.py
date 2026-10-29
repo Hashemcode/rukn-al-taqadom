@@ -1,0 +1,670 @@
+#!/usr/bin/env python3
+"""Static site builder for Rukn Al Taqadom Construction & Engineering.
+English pages -> dist/, Arabic (RTL) pages -> dist/ar/.
+Content lives in this file as (en, ar) pairs."""
+import html, json, re, shutil, urllib.parse
+from pathlib import Path
+
+ROOT = Path(__file__).parent
+SRC, DIST = ROOT / "src", ROOT / "dist"
+DOMAIN = "https://hashemcode.github.io/rukn-al-taqadom"
+
+CONTENT = ROOT / "content"
+
+ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>'
+
+# ------------------------------------------------------------------ content
+# Editable content lives in content/*.json (managed through /admin).
+NAV = [
+    ("index.html", ("Home", "الرئيسية")),
+    ("about.html", ("About", "من نحن")),
+    ("services.html", ("Services", "خدماتنا")),
+    ("projects.html", ("Projects", "مشاريعنا")),
+    ("contact.html", ("Contact", "تواصل معنا")),
+]
+
+CATS = {
+    "hvac": ("HVAC", "التكييف"),
+    "fire": ("Fire Protection", "الحماية من الحريق"),
+    "electrical": ("Electrical", "الكهرباء"),
+    "plumbing": ("Plumbing", "السباكة"),
+    "security": ("Security & ELV", "الأمن والتيار الخفيف"),
+}
+
+
+def load(name):
+    return json.loads((CONTENT / f"{name}.json").read_text(encoding="utf-8"))
+
+
+def safe_url(u):
+    u = str(u or "").strip()
+    return html.escape(u) if u.startswith(("https://", "http://")) else ""
+
+
+SETTINGS = load("settings")
+PHONE = html.escape(SETTINGS.get("phone", ""))
+PHONE_RAW = re.sub(r"\D", "", SETTINGS.get("phoneDigits") or SETTINGS.get("phone", ""))
+EMAIL_1 = html.escape(SETTINGS.get("emailPrimary", ""))
+EMAIL_2 = html.escape(SETTINGS.get("emailSecondary", ""))
+LINKEDIN = safe_url(SETTINGS.get("linkedin"))
+FACEBOOK = safe_url(SETTINGS.get("facebook"))
+COMPANY, ADDRESS, HOURS = SETTINGS["company"], SETTINGS["address"], SETTINGS["hours"]
+CITY = SETTINGS.get("city") or {"en": "Al Khobar", "ar": "الخبر"}
+SHORT_ADDRESS = html.escape(SETTINGS.get("shortAddress", ""))
+_addr_en = [x.strip() for x in str(ADDRESS.get("en", "")).splitlines() if x.strip()]
+MAP_Q = urllib.parse.quote(", ".join(_addr_en[:3]) or "Al Khobar, Saudi Arabia")
+
+
+def addr(L):
+    """Address with its line breaks kept (text is escaped by L first)."""
+    return L(ADDRESS).replace("\n", "<br>")
+
+SERVICES = [dict(id=re.sub(r"[^a-z0-9-]", "", s["id"]), img=s["image"], pos=s.get("focus") or "50% 50%", t=s["title"], tags=s["tags"],
+                 short=s["summary"], body=s.get("paragraphs", []), points=s.get("points", [])) for s in load("services")]
+
+
+def _cats(p):
+    return " ".join(c for c in p.get("categories", []) if c in CATS)
+
+
+_projects = load("projects")
+PROJECTS = [dict(n=p["name"], loc=p.get("location", {}), c=p.get("client", {}), s=p.get("tags", []), cats=_cats(p),
+                 img=p["image"], d=p.get("scope", []), featured=p.get("featured", False)) for p in _projects if p.get("image")]
+LEDGER = [(p["name"], p.get("client", {}),
+           {lg: " · ".join(t.get(lg) or t.get("en", "") for t in p.get("tags", [])) for lg in ("en", "ar")}, _cats(p))
+          for p in _projects if not p.get("image")]
+PARTNERS = [(p["logo"], p["name"]) for p in load("partners") if p.get("logo")]
+TOTAL_PROJECTS = len(_projects)
+PG = load("pages")  # editable page wording, photos and section switches
+
+
+def img_name(f):
+    return html.escape(str(f or "").strip())
+
+
+def two_lines(L, first, second, cls="outline"):
+    return f'{L(first)}<br><span class="{cls}">{L(second)}</span>'
+
+SECTORS = [
+    ("commercial", ("Commercial", "تجاري"), ("Offices, retail & fuel stations", "مكاتب ومتاجر ومحطات وقود"),
+     '<path d="M4 21V4h10v17M14 9h6v12M7 8h2M7 12h2M7 16h2M17 13h1M17 17h1M2 21h20"/>'),
+    ("residential", ("Residential", "سكني"), ("Villas, palaces & compounds", "فلل وقصور ومجمعات"),
+     '<path d="M3 11l9-7 9 7M5 9.5V21h14V9.5M10 21v-6h4v6"/>'),
+    ("industrial", ("Industrial", "صناعي"), ("Factories, plants & power stations", "مصانع ومحطات طاقة"),
+     '<path d="M2 21V11l6 3.5V11l6 3.5V7h3l1 -4h2l1 4v14zM2 21h20M6 18h2M11 18h2"/>'),
+    ("hospitality", ("Hospitality", "ضيافة"), ("Hotels, restaurants & gyms", "فنادق ومطاعم وأندية رياضية"),
+     '<path d="M3 18h18M5 18a7 7 0 0114 0M12 8v3M10 8h4M2 21h20"/>'),
+    ("medical", ("Medical", "طبي"), ("Hospitals & critical care", "مستشفيات ورعاية حرجة"),
+     '<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>'),
+    ("educational", ("Educational", "تعليمي"), ("Schools & institutions", "مدارس ومؤسسات"),
+     '<path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6"/>'),
+]
+
+# ------------------------------------------------------------------ helpers
+def tr(lang):
+    """Pick a language. Dicts come from editable JSON (escaped, English fallback); tuples are trusted template copy."""
+    i = 0 if lang == "en" else 1
+
+    def L(p):
+        if isinstance(p, dict):
+            return html.escape(str(p.get(lang) or p.get("en") or ""))
+        return p[i]
+    return L
+
+
+def head(lang, page, title, desc, a):
+    L = tr(lang)
+    path_en = f"{DOMAIN}/{page}" if page != "index.html" else f"{DOMAIN}/"
+    path_ar = f"{DOMAIN}/ar/{page}" if page != "index.html" else f"{DOMAIN}/ar/"
+    canon = path_en if lang == "en" else path_ar
+    ld = {
+        "@context": "https://schema.org", "@type": "GeneralContractor",
+        "name": "Rukn Al Taqadom Construction & Engineering L.L.C", "alternateName": "ركن التقدم للمقاولات والهندسة",
+        "url": DOMAIN + "/", "logo": DOMAIN + "/assets/img/logo-dark.png",
+        "email": EMAIL_1, "telephone": PHONE,
+        "address": {"@type": "PostalAddress", "streetAddress": " ".join(_addr_en[:2]),
+                    "addressLocality": CITY.get("en", ""), "addressCountry": "AE"},
+        "sameAs": [LINKEDIN, FACEBOOK],
+    }
+    return f"""<!doctype html>
+<html lang="{lang}" dir="{'rtl' if lang == 'ar' else 'ltr'}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{canon}">
+<link rel="alternate" hreflang="en" href="{path_en}">
+<link rel="alternate" hreflang="ar" href="{path_ar}">
+<link rel="alternate" hreflang="x-default" href="{path_en}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:image" content="{DOMAIN}/assets/img/og.jpg">
+<meta property="og:url" content="{canon}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0d0d0f">
+<link rel="icon" href="{a}assets/img/favicon.png">
+<link rel="apple-touch-icon" href="{a}assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Manrope:wght@400;500;600;700&{'family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&' if lang == 'ar' else ''}display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{a}assets/css/main.css">
+<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+</head>
+<body>
+<a class="skip" href="#main">{L(("Skip to content", "انتقل إلى المحتوى"))}</a>
+"""
+
+
+def header(lang, page, a):
+    L = tr(lang)
+    other = f"{'ar/' if lang == 'en' else '../'}{page}"
+    current = ' aria-current="page"'
+    links = "".join(
+        f'<li><a href="{href}"{current if href == page else ""}>{L(lbl)}</a></li>' for href, lbl in NAV)
+    mlinks = "".join(f'<a href="{href}"{current if href == page else ""}><span>{i + 1:02d}</span>{L(lbl)}</a>' for i, (href, lbl) in enumerate(NAV))
+    return f"""<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="{L(COMPANY)}"><img src="{a}assets/img/logo-light.png" alt="{L(COMPANY)}" width="673" height="672"></a>
+    <nav aria-label="{L(('Primary', 'القائمة الرئيسية'))}"><ul class="nav-links">{links}</ul></nav>
+    <div class="nav-actions">
+      <a class="lang" href="{other}" hreflang="{'ar' if lang == 'en' else 'en'}" lang="{'ar' if lang == 'en' else 'en'}">{'العربية' if lang == 'en' else 'English'}</a>
+      <a class="btn btn-primary nav-cta" href="contact.html">{L(('Request a proposal', 'اطلب عرض سعر'))}</a>
+      <button class="burger" aria-label="{L(('Menu', 'القائمة'))}" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" aria-label="{L(('Menu', 'القائمة'))}">
+  <nav class="mm-links">{mlinks}</nav>
+  <a class="btn btn-primary mm-cta" href="contact.html">{L(('Request a proposal', 'اطلب عرض سعر'))} {ARROW}</a>
+  <div class="mm-foot"><a class="ltr" href="tel:+{PHONE_RAW}">{PHONE}</a><a href="mailto:{EMAIL_1}">{EMAIL_1}</a>
+    <a class="mm-lang" href="{other}" hreflang="{'ar' if lang == 'en' else 'en'}">{'العربية' if lang == 'en' else 'English'}</a></div>
+</div>
+"""
+
+
+def cta(lang):
+    L = tr(lang)
+    return f"""<section class="cta">
+  <div class="wrap cta-inner">
+    <div class="reveal">
+      <span class="eyebrow">{L(('Start a project', 'ابدأ مشروعك'))}</span>
+      <h2 class="display h2" style="margin-top:22px">{L(PG['footer']['ctaLine1'])}<br>{L(PG['footer']['ctaLine2'])}</h2>
+    </div>
+    <div class="cta-actions reveal" data-delay="1">
+      <a class="big" href="tel:+{PHONE_RAW}">{PHONE}</a>
+      <a class="big" href="mailto:{EMAIL_1}">{EMAIL_1}</a>
+      <a class="btn btn-dark" href="contact.html" style="margin-top:14px">{L(('Request a proposal', 'اطلب عرض سعر'))} {ARROW}</a>
+    </div>
+  </div>
+</section>
+"""
+
+
+def footer(lang, a):
+    L = tr(lang)
+    svc = "".join(f'<li><a href="services.html#{s["id"]}">{L(s["t"])}</a></li>' for s in SERVICES[:6])
+    nav = "".join(f'<li><a href="{h}">{L(l)}</a></li>' for h, l in NAV)
+    return f"""<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="{a}assets/img/logo-light.png" alt="{L(COMPANY)}" width="673" height="672" loading="lazy">
+        <p>{L(PG['footer']['tagline'])}</p>
+        <div class="socials">
+          <a href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.6 8.65 21 11.2 21 14.5V21h-4v-5.8c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9z"/></svg></a>
+          <a href="{FACEBOOK}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.25-1.5 1.55-1.5h1.65V3.4c-.3-.04-1.27-.12-2.4-.12-2.38 0-4 1.45-4 4.1v2.4H7.6V13h2.7v8z"/></svg></a>
+          <a href="https://wa.me/{PHONE_RAW}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
+        </div>
+      </div>
+      <div><h4>{L(('Navigate', 'تصفح'))}</h4><ul>{nav}</ul></div>
+      <div><h4>{L(('Services', 'الخدمات'))}</h4><ul>{svc}</ul></div>
+      <div class="foot-contact"><h4>{L(('Head Office', 'المقر الرئيسي'))} — {L(CITY)}</h4>
+        <ul>
+          <li>{addr(L)}</li>
+          <li><a class="ltr" href="tel:+{PHONE_RAW}">{PHONE}</a></li>
+          <li><a href="mailto:{EMAIL_1}">{EMAIL_1}</a></li>
+          <li><a href="mailto:{EMAIL_2}">{EMAIL_2}</a></li>
+          <li>{L(HOURS)}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-mega" aria-hidden="true">{L(('RUKN AL TAQADOM', 'ركن التقدم'))}</div>
+    <div class="foot-bar">
+      <span>© <span data-year>2026</span> {L(('Rukn Al Taqadom Construction & Engineering L.L.C. All rights reserved.', 'ركن التقدم للمقاولات والهندسة ذ.م.م. جميع الحقوق محفوظة.'))}</span>
+      <span>{L(CITY)} · {L(('United Arab Emirates', 'الإمارات العربية المتحدة'))}</span>
+    </div>
+  </div>
+</footer>
+<nav class="action-bar" aria-label="{L(('Quick contact', 'تواصل سريع'))}">
+  <a href="tel:+{PHONE_RAW}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 005 5L15 12l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 012-2"/></svg>{L(('Call', 'اتصال'))}</a>
+  <a href="https://wa.me/{PHONE_RAW}" target="_blank" rel="noopener" class="ab-wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>WhatsApp</a>
+  <a href="contact.html" class="ab-cta">{L(('Get a quote', 'اطلب عرض سعر'))} {ARROW}</a>
+</nav>
+<a class="wa" href="https://wa.me/{PHONE_RAW}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
+<script src="{a}assets/js/main.js" defer></script>
+</body>
+</html>
+"""
+
+
+def page_hero(lang, a, img, eyebrow, title_html, lead, crumb, pos="50% 50%"):
+    L = tr(lang)
+    return f"""<section class="hero page-hero">
+  <div class="hero-media"><img src="{a}assets/img/{img_name(img)}" alt="" style="object-position:{pos}" fetchpriority="high"></div>
+  <div class="hero-slashes" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap hero-content">
+    <nav class="crumbs" aria-label="breadcrumb"><a href="index.html">{L(('Home', 'الرئيسية'))}</a><span>/</span><span>{crumb}</span></nav>
+    <span class="eyebrow">{eyebrow}</span>
+    <h1 class="display h1" style="margin-top:26px">{title_html}</h1>
+    <p class="lead" style="margin-top:30px">{lead}</p>
+  </div>
+</section>
+"""
+
+
+def project_card(lang, a, p, detailed=False, lazy=True):
+    L = tr(lang)
+    chips = "".join(f"<li>{L(s)}</li>" for s in p["s"])
+    scope = ""
+    if detailed:
+        if p["d"]:
+            scope = (f'<button class="scope-toggle" type="button" aria-expanded="false">{L(("Scope of work", "نطاق العمل"))}<i aria-hidden="true"></i></button>'
+                     '<ul class="card-scope">' + "".join(f"<li>{L(d)}</li>" for d in p["d"]) + "</ul>")
+    return f"""<article class="card" data-cats="{p['cats']}">
+  <span class="client">{L(p['c'])}</span>
+  <div class="card-media"><img src="{a}assets/img/{html.escape(p['img'])}" alt="{L(p['n'])}" loading="{'lazy' if lazy else 'eager'}"></div>
+  <div class="card-body">
+    <span class="card-loc">{L(p['loc'])}</span>
+    <h3>{L(p['n'])}</h3>
+    <ul class="chips">{chips}</ul>{scope}
+  </div>
+</article>"""
+
+
+def partners_marquee(a):
+    tiles = "".join(f'<div class="logo-tile"><img src="{a}assets/img/{html.escape(f)}" alt="{html.escape(n)}" loading="lazy"></div>' for f, n in PARTNERS)
+    return f"""<div class="marquee" role="list"><div class="marquee-track">
+  <div class="marquee-group">{tiles}</div><div class="marquee-group" aria-hidden="true">{tiles}</div>
+</div></div>"""
+
+
+def quote_band(lang, a, bg, P):
+    L = tr(lang)
+    return f"""<section class="quote-band">
+  <div class="bg" data-parallax style="background-image:url('{a}assets/img/{bg}')"></div>
+  <div class="wrap reveal">
+    <span class="eyebrow">{L(("Managing Director's statement", 'كلمة المدير العام'))}</span>
+    <blockquote>
+      <p>{L(P['quote'])}</p>
+      <cite>{L(P['quoteBy'])}</cite>
+    </blockquote>
+  </div>
+</section>"""
+
+
+def sectors_html(lang):
+    L = tr(lang)
+    return '<div class="sectors">' + "".join(
+        f'<div class="sector reveal" data-delay="{i % 3}"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{icon}</svg><div><b>{L(t)}</b><span>{L(d)}</span></div></div>'
+        for i, (_, t, d, icon) in enumerate(SECTORS)) + "</div>"
+
+
+# ------------------------------------------------------------------ pages
+def page_index(lang, a):
+    L = tr(lang)
+    disc_items = "".join(f"""<li class="disc-item" data-caption="{L(s['short'])}"><a href="services.html#{s['id']}">
+  <span class="num">{i + 1:02d}</span><img class="disc-thumb" src="{a}assets/img/{html.escape(s['img'])}" alt="" loading="lazy" style="object-position:{html.escape(s['pos'])}"><span><h3>{L(s['t'])}</h3><span class="tags">{L(s['tags'])}</span></span><span class="arrow">{ARROW}</span></a></li>"""
+                         for i, s in enumerate(SERVICES))
+    disc_imgs = "".join(f'<img src="{a}assets/img/{html.escape(s["img"])}" alt="" loading="lazy" style="object-position:{html.escape(s["pos"])}">' for s in SERVICES)
+    rail = "".join(project_card(lang, a, p) for p in ([p for p in PROJECTS if p["featured"]] or PROJECTS)[:12])
+    H = PG["home"]
+    steps_html = "".join(f'<div class="step reveal" data-delay="{i % 4}"><h3>{L(st["title"])}</h3><p>{L(st["text"])}</p></div>' for i, st in enumerate(H.get("steps", [])))
+    about_paras = "".join(f"<p>{L(t)}</p>" for t in H.get("aboutText", []))
+
+    body = f"""<main id="main">
+<section class="hero">
+  <div class="hero-media"><img src="{a}assets/img/{img_name(H['heroImage'])}" alt="" fetchpriority="high"></div>
+  <div class="hero-slashes" aria-hidden="true"><i></i><i></i><i></i></div>
+  <span class="scroll-cue" aria-hidden="true">{L(('Scroll', 'مرر'))}</span>
+  <div class="wrap hero-content">
+    <span class="eyebrow">{L(H['heroEyebrow'])}</span>
+    <h1 class="display h1">
+      <span class="line"><span>{L(H['heroLine1'])}</span></span>
+      <span class="line"><span class="outline">{L(H['heroLine2'])}</span></span>
+      <span class="line"><span>{L(H['heroLine3'])}<span class="accent">.</span></span></span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="lead">{L(H['heroLead'])}</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="projects.html">{L(('Explore our projects', 'استكشف مشاريعنا'))} {ARROW}</a>
+        <a class="btn btn-ghost" href="contact.html">{L(('Talk to an engineer', 'تحدث مع مهندس'))}</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div><b data-count="{TOTAL_PROJECTS}" data-suffix="+">{TOTAL_PROJECTS}+</b><span>{L(('Projects delivered', 'مشروعاً منجزاً'))}</span></div>
+      <div><b data-count="{len(SERVICES)}">{len(SERVICES)}</b><span>{L(('Trades in-house', 'تخصصاً داخلياً'))}</span></div>
+      <div><b data-count="{len(SECTORS)}">{len(SECTORS)}</b><span>{L(('Sectors served', 'قطاعات نخدمها'))}</span></div>
+      <div><b data-count="{len(PARTNERS)}">{len(PARTNERS)}</b><span>{L(('Industry partners', 'شركاء في القطاع'))}</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section light">
+  <div class="wrap statement">
+    <div class="statement-text reveal">
+      <span class="eyebrow">{L(('Who we are', 'من نحن'))}</span>
+      <h2 class="display h2">{two_lines(L, H['aboutTitle'], H['aboutHighlight'], 'accent')}</h2>
+      {about_paras}
+      <div class="sig-list">
+        <div><b>{L(('Design', 'التصميم'))}</b><span>{L(('Drawings, approvals & value engineering', 'المخططات والاعتمادات وهندسة القيمة'))}</span></div>
+        <div><b>{L(('Procure', 'التوريد'))}</b><span>{L(('Materials from trusted suppliers', 'مواد من موردين موثوقين'))}</span></div>
+        <div><b>{L(('Build', 'التنفيذ'))}</b><span>{L(('Skilled in-house crews', 'فرق تنفيذ ماهرة'))}</span></div>
+        <div><b>{L(('Maintain', 'الصيانة'))}</b><span>{L(('Contracts after handover', 'عقود بعد التسليم'))}</span></div>
+      </div>
+      <a class="btn btn-dark" href="about.html" style="margin-top:36px">{L(('Our story', 'قصتنا'))} {ARROW}</a>
+    </div>
+    <div class="statement-media reveal" data-delay="1">
+      <div class="slash-mask"><img src="{a}assets/img/{img_name(H['aboutImage'])}" alt="{L(('Engineer working on an electrical panel', 'مهندس يعمل على لوحة كهربائية'))}" loading="lazy" style="object-position:38% 30%"></div>
+      <div class="slash-bar"></div>
+      <div class="stamp"><b data-count="2018">2018</b><span>{L(('Group operating since', 'المجموعة تعمل منذ'))}</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="reveal"><span class="eyebrow">{L(('What we do', 'ماذا نقدم'))}</span><h2 class="display h2">{L(('From foundation<br>to final finish.', 'من الأساس<br>إلى آخر تشطيب.'))}</h2></div>
+      <p class="lead reveal" data-delay="1">{L(('Concrete, finishes, air conditioning, power, water and fire protection — every trade executed in-house, so the programme answers to one team.', 'الخرسانة والتشطيبات والتكييف والطاقة والمياه والحماية من الحريق — كل تخصص يُنفَّذ داخلياً، ليبقى البرنامج الزمني مسؤولية فريق واحد.'))}</p>
+    </div>
+    <div class="disciplines">
+      <ul class="disc-list">{disc_items}</ul>
+      <div class="disc-preview" aria-hidden="true">{disc_imgs}<span class="corner"></span><p class="disc-caption"></p></div>
+    </div>
+  </div>
+</section>
+
+<!--opt:showSectors--><section class="section light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="reveal"><span class="eyebrow">{L(('Sectors', 'القطاعات'))}</span><h2 class="display h2">{L(('Where our work lives.', 'حيث تعمل أنظمتنا.'))}</h2></div>
+      <p class="lead reveal" data-delay="1">{L(('Hospitals that cannot close. Factories where downtime is costly. Hotels where the finish is the product.', 'مستشفيات لا يمكن إغلاقها. مصانع يكون فيها التوقف مكلفاً. فنادق يكون فيها التشطيب هو المنتج.'))}</p>
+    </div>
+    {sectors_html(lang)}
+  </div>
+</section><!--/opt-->
+
+<section class="section steel" style="padding-inline:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="reveal"><span class="eyebrow">{L(('Selected projects', 'مشاريع مختارة'))}</span><h2 class="display h2">{L(('Proof, not promises.', 'إنجازات لا وعود.'))}</h2></div>
+      <div class="reveal" data-delay="1" style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap">
+        <p class="lead" style="margin:0">{L(('Hospitals, hotels, factories, stations and residences delivered by our group across the Gulf.', 'مستشفيات وفنادق ومصانع ومحطات ومساكن أنجزتها مجموعتنا في أنحاء الخليج.'))}</p>
+        <div class="rail-controls"><button data-rail="prev" aria-label="{L(('Previous', 'السابق'))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button><button data-rail="next" aria-label="{L(('Next', 'التالي'))}">{ARROW}</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail">{rail}</div>
+  <div class="wrap" style="margin-top:40px"><a class="btn btn-ghost" href="projects.html">{L(('View all projects', 'عرض جميع المشاريع'))} {ARROW}</a></div>
+</section>
+
+<!--opt:showSteps--><section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="reveal"><span class="eyebrow">{L(('How we deliver', 'منهجية العمل'))}</span><h2 class="display h2">{L(('Turnkey,<br>end to end.', 'تسليم مفتاح،<br>من البداية للنهاية.'))}</h2></div>
+      <p class="lead reveal" data-delay="1">{L(('One contractor from the first drawing to the last maintenance visit — so nothing falls between trades.', 'مقاول واحد من أول مخطط حتى آخر زيارة صيانة — فلا يضيع شيء بين التخصصات.'))}</p>
+    </div>
+    <div class="process">{steps_html}</div>
+  </div>
+</section><!--/opt-->
+
+<!--opt:showQuote-->{quote_band(lang, a, 'team-future.webp', H)}<!--/opt-->
+
+<!--opt:showPartners--><section class="section light" style="padding-bottom:clamp(70px,9vw,130px)">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:50px">
+      <div class="reveal"><span class="eyebrow">{L(('Partners & clients', 'الشركاء والعملاء'))}</span><h2 class="display h2">{L(('In good company.', 'في صحبة الكبار.'))}</h2></div>
+      <p class="lead reveal" data-delay="1">{L(('Our group works alongside the region’s leading manufacturers, developers and consultants.', 'تعمل مجموعتنا جنباً إلى جنب مع كبرى الشركات المصنعة والمطورين والاستشاريين في المنطقة.'))}</p>
+    </div>
+  </div>
+  {partners_marquee(a)}
+</section><!--/opt-->
+{cta(lang)}
+</main>
+"""
+    for key in ("showSectors", "showSteps", "showQuote", "showPartners"):
+        body = re.sub(rf"<!--opt:{key}-->(.*?)<!--/opt-->", (lambda m: m.group(1)) if H.get(key, True) else "", body, flags=re.S)
+    title = L(("Rukn Al Taqadom — Construction, Fit-Out & MEP Contractor | Dubai, U.A.E.", "ركن التقدم — مقاولات البناء والتشطيبات والأنظمة الكهروميكانيكية | دبي، الإمارات"))
+    desc = L(("Dubai construction and engineering contractor. Civil works, fit-out, MEP, infrastructure and fire protection for hotels, hospitals, factories and residences across the U.A.E.",
+              "شركة مقاولات وهندسة في دبي. الأعمال المدنية والتشطيبات والأنظمة الكهروميكانيكية والبنية التحتية والحماية من الحريق للفنادق والمستشفيات والمصانع والمساكن في أنحاء الإمارات."))
+    return title, desc, body
+
+
+def page_about(lang, a):
+    L = tr(lang)
+    P = PG["about"]
+    icons = ['<path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21l1.4-7L2 9.3l7-.8z"/>',
+             '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
+             '<path d="M3 12h4l3-8 4 16 3-8h4"/>']
+    vals = "".join(f'<div class="value reveal" data-delay="{i % 3}"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{icons[i % 3]}</svg><h3>{L(v["title"])}</h3><p>{L(v["text"])}</p></div>'
+                   for i, v in enumerate(P.get("values", [])))
+    story = "".join(f"<p>{L(t)}</p>" for t in P.get("storyText", []))
+    body = f"""<main id="main">
+{page_hero(lang, a, P['heroImage'], L(('About us', 'من نحن')), two_lines(L, P['heroLine1'], P['heroLine2']), L(P['heroLead']), L(('About', 'من نحن')))}
+<section class="section light">
+  <div class="wrap statement">
+    <div class="statement-text reveal">
+      <span class="eyebrow">{L(('Our story', 'قصتنا'))}</span>
+      <h2 class="display h2">{two_lines(L, P['storyTitle'], P['storyHighlight'], 'accent')}</h2>
+      {story}
+    </div>
+    <div class="statement-media reveal" data-delay="1">
+      <div class="slash-mask"><img src="{a}assets/img/{img_name(P['storyImage'])}" alt="" loading="lazy" style="object-position:72% 50%"></div>
+      <div class="slash-bar"></div>
+      <div class="stamp"><b>{L(('UAE', 'الإمارات'))}</b><span>{L(('Registered in Dubai', 'مسجلة في دبي'))}</span></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="timeline">
+      <div class="tl reveal"><b>{L(('Dubai', 'دبي'))}</b><span>{L(('Registered L.L.C, working across the U.A.E.', 'شركة ذ.م.م مسجلة تعمل في أنحاء الإمارات'))}</span></div>
+      <div class="tl reveal" data-delay="1"><b>2018</b><span>{L(('Our engineering group operating since', 'مجموعتنا الهندسية تعمل منذ'))}</span></div>
+      <div class="tl reveal" data-delay="2"><b>{TOTAL_PROJECTS}+</b><span>{L(('Projects in the group record', 'مشروعاً في سجل المجموعة'))}</span></div>
+      <div class="tl reveal" data-delay="3"><b>{len(SERVICES)}</b><span>{L(('Trades delivered under one contract', 'تخصصاً ضمن عقد واحد'))}</span></div>
+    </div>
+  </div>
+</section>
+<section class="section steel">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="reveal"><span class="eyebrow">{L(('What drives us', 'ما يحركنا'))}</span><h2 class="display h2">{L(('Standards we<br>build on.', 'معايير<br>نبني عليها.'))}</h2></div>
+      <p class="lead reveal" data-delay="1">{L(('How we price, plan and hand over a project — the standards every site team works to.', 'كيف نسعّر المشروع ونخطط له ونسلّمه — المعايير التي تعمل بها كل فرقنا في المواقع.'))}</p>
+    </div>
+    <div class="values">{vals}</div>
+  </div>
+</section>
+{quote_band(lang, a, 'hero-plant.webp', P)}
+<section class="section light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="reveal"><span class="eyebrow">{L(('Sectors', 'القطاعات'))}</span><h2 class="display h2">{L(('Six sectors.<br>One standard.', 'ستة قطاعات.<br>معيار واحد.'))}</h2></div>
+    </div>
+    {sectors_html(lang)}
+  </div>
+</section>
+<section class="section light" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="sec-head"><div class="reveal"><span class="eyebrow">{L(('Offices', 'مكاتبنا'))}</span><h2 class="display h2">{L(('Find us.', 'تجدنا هنا.'))}</h2></div></div>
+    <div class="offices">
+      <div class="office reveal"><span class="tag">{L(('Head office', 'المقر الرئيسي'))}</span><h3>{L(CITY)}</h3><p>{addr(L)}</p><p style="margin-top:14px"><a class="ltr" href="tel:+{PHONE_RAW}">{PHONE}</a></p></div>
+      <div class="office reveal" data-delay="1"><span class="tag">{L(('Group office', 'مكتب المجموعة'))}</span><h3>{L(('Al Khobar', 'الخبر'))}</h3><p>{L(('Advanced Engineering House — Saudi Arabia', 'بيت الهندسة المتقدمة — المملكة العربية السعودية'))}</p><p style="margin-top:14px"><a href="mailto:{EMAIL_1}">{EMAIL_1}</a></p></div>
+    </div>
+  </div>
+</section>
+<section class="section light" style="padding-block:clamp(60px,8vw,110px)">
+  <div class="wrap"><div class="sec-head" style="margin-bottom:40px"><div><span class="eyebrow">{L(('Partners', 'الشركاء'))}</span></div></div></div>
+  {partners_marquee(a)}
+</section>
+{cta(lang)}
+</main>
+"""
+    return (L(("About Us — Rukn Al Taqadom Construction & Engineering", "من نحن — ركن التقدم للمقاولات والهندسة")),
+            L(("Dubai-registered construction and engineering contractor, the construction arm of an engineering group operating since 2018.", "شركة مقاولات وهندسة مسجلة في دبي، وهي الذراع الإنشائي لمجموعة هندسية تعمل منذ 2018.")), body)
+
+
+def page_services(lang, a):
+    L = tr(lang)
+    idx = "".join(f'<a href="#{s["id"]}">{L(s["t"])}</a>' for s in SERVICES)
+    blocks = ""
+    for i, s in enumerate(SERVICES):
+        paras = "".join(f"<p>{L(p)}</p>" for p in s["body"])
+        pts = "".join(f"<li>{L(p)}</li>" for p in s["points"])
+        blocks += f"""<article class="svc" id="{s['id']}" style="scroll-margin-top:100px">
+  <div class="svc-media reveal"><img src="{a}assets/img/{html.escape(s['img'])}" alt="{L(s['t'])}" loading="lazy" style="object-position:{html.escape(s['pos'])}"><span class="idx">{i + 1:02d}</span></div>
+  <div class="svc-body reveal" data-delay="1">
+    <span class="eyebrow">{L(s['tags'])}</span>
+    <h2 class="display h3" style="font-size:clamp(32px,3.6vw,56px);font-weight:800">{L(s['t'])}</h2>
+    {paras}
+    <ul class="svc-points">{pts}</ul>
+  </div>
+</article>"""
+    P = PG["services"]
+    body = f"""<main id="main">
+<section class="hero page-hero">
+  <div class="hero-media"><img src="{a}assets/img/{img_name(P['heroImage'])}" alt="" style="object-position:80% 50%" fetchpriority="high"></div>
+  <div class="hero-slashes" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap hero-content">
+    <nav class="crumbs" aria-label="breadcrumb"><a href="index.html">{L(('Home', 'الرئيسية'))}</a><span>/</span><span>{L(('Services', 'الخدمات'))}</span></nav>
+    <span class="eyebrow">{L(('Our services', 'خدماتنا'))}</span>
+    <h1 class="display h1" style="margin-top:26px">{two_lines(L, P['heroLine1'], P['heroLine2'])}</h1>
+    <p class="lead" style="margin-top:30px">{L(P['heroLead'])}</p>
+    <div class="svc-index">{idx}</div>
+  </div>
+</section>
+<section class="section light" style="padding-block:clamp(30px,5vw,60px)">
+  <div class="wrap">{blocks}</div>
+</section>
+{cta(lang)}
+</main>
+"""
+    return (L(("Services — Construction, Fit-Out, MEP & Infrastructure | Rukn Al Taqadom", "الخدمات — المقاولات والتشطيبات والأنظمة الكهروميكانيكية والبنية التحتية | ركن التقدم")),
+            L(("General construction, fit-out and finishes, MEP works, infrastructure, firefighting, electrical, HVAC, project management and maintenance.", "المقاولات العامة والتشطيبات والأعمال الكهروميكانيكية والبنية التحتية ومكافحة الحريق والكهرباء والتكييف وإدارة المشاريع والصيانة.")), body)
+
+
+def page_projects(lang, a):
+    L = tr(lang)
+    btns = f'<button data-filter="all" aria-pressed="true">{L(("All projects", "جميع المشاريع"))}</button>' + "".join(
+        f'<button data-filter="{k}" aria-pressed="false">{L(v)}</button>' for k, v in CATS.items())
+    cards = "".join(project_card(lang, a, p, detailed=True) for p in PROJECTS)
+    lc, ls = L(('Client', 'العميل')), L(('Scope', 'النطاق'))
+    rows = "".join(f'<tr data-cats="{cats}"><td>{i + len(PROJECTS) + 1:02d}</td><td>{L(n)}</td><td data-label="{lc}">{L(c)}</td><td data-label="{ls}">{L(s)}</td></tr>'
+                   for i, (n, c, s, cats) in enumerate(LEDGER))
+    P = PG["projects"]
+    body = f"""<main id="main">
+{page_hero(lang, a, P['heroImage'], L(('Portfolio', 'أعمالنا')), two_lines(L, P['heroLine1'], P['heroLine2']), L(P['heroLead']), L(('Projects', 'المشاريع')), pos="50% 35%")}
+<section class="section steel">
+  <div class="wrap">
+    <div class="filters" role="group" aria-label="{L(('Filter projects', 'تصفية المشاريع'))}">{btns}</div>
+    <div class="grid-projects">{cards}</div>
+  </div>
+</section>
+<section class="section light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="reveal"><span class="eyebrow">{L(('Project register', 'سجل المشاريع'))}</span><h2 class="display h2">{L(('More of our work.', 'المزيد من أعمالنا.'))}</h2></div>
+      <p class="lead reveal" data-delay="1">{L(('Including Aramco’s Al-Safaniyah project, SCECO power stations and Maaden’s Arar camp — delivered by our group.', 'بما في ذلك مشروع السفانية لأرامكو ومحطات الشركة السعودية للكهرباء ومجمع معادن في عرعر — نفذتها مجموعتنا.'))}</p>
+    </div>
+    <div class="table-scroll reveal">
+      <table class="ledger">
+        <thead><tr><th>#</th><th>{L(('Project', 'المشروع'))}</th><th>{L(('Client', 'العميل'))}</th><th>{L(('Scope of work', 'نطاق العمل'))}</th></tr></thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{cta(lang)}
+</main>
+"""
+    return (L(("Projects — Rukn Al Taqadom Construction & Engineering", "المشاريع — ركن التقدم للمقاولات والهندسة")),
+            L(("Our group's project record: Kempinski Al Othman Hotel, King Fahad Hospital, Quarter Hotel, Gulf Cryo factory, DHL warehouses and Aramco Al-Safaniyah.", "سجل مشاريع مجموعتنا: فندق كمبينسكي العثمان ومستشفى الملك فهد وفندق كوارتر ومصنع جالف كرايو ومستودعات DHL ومشروع السفانية لأرامكو.")), body)
+
+
+def page_contact(lang, a):
+    L = tr(lang)
+    opts = "".join(f"<option>{L(s['t'])}</option>" for s in SERVICES)
+    ic_phone = '<svg viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 005 5L15 12l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 012-2"/></svg>'
+    ic_mail = '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg>'
+    ic_pin = '<svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0114 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>'
+    ic_clock = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'
+    P = PG["contact"]
+    body = f"""<main id="main">
+{page_hero(lang, a, P['heroImage'], L(('Contact', 'تواصل معنا')), two_lines(L, P['heroLine1'], P['heroLine2']), L(P['heroLead']), L(('Contact', 'تواصل معنا')))}
+<section class="section">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <div class="contact-cards">
+        <a href="tel:+{PHONE_RAW}">{ic_phone}<div><small>{L(('Hotline', 'الخط الساخن'))}</small><b class="ltr">{PHONE}</b></div></a>
+        <a href="mailto:{EMAIL_1}">{ic_mail}<div><small>{L(('General enquiries', 'الاستفسارات العامة'))}</small><b>{EMAIL_1}</b></div></a>
+        <a href="mailto:{EMAIL_2}">{ic_mail}<div><small>{L(('Direct — Management', 'مباشر — الإدارة'))}</small><b>{EMAIL_2}</b></div></a>
+        <div>{ic_pin}<div><small>{L(('Head office', 'المقر الرئيسي'))}</small><b>{addr(L)}</b>{f'<span class="nat-addr">{L(("National Address", "العنوان الوطني"))}: <bdi>{SHORT_ADDRESS}</bdi></span>' if SHORT_ADDRESS else ''}</div></div>
+        <div>{ic_clock}<div><small>{L(('Working hours', 'ساعات العمل'))}</small><b>{L(HOURS)}</b></div></div>
+      </div>
+      <iframe class="map" title="{L(('Office location map', 'خريطة موقع المكتب'))}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q={MAP_Q}&z=15&output=embed"></iframe>
+    </div>
+    <form class="form reveal" data-delay="1" data-endpoint="https://formsubmit.co/ajax/{EMAIL_1}" data-mailto="{EMAIL_1},{EMAIL_2}"
+      data-sending="{L(('Sending…', 'جارٍ الإرسال…'))}" data-ok="{L(('Thank you — your message has been sent. We will be in touch shortly.', 'شكراً لك — تم إرسال رسالتك وسنتواصل معك قريباً.'))}"
+      data-err="{L(('Could not send automatically — opening your email app instead.', 'تعذر الإرسال تلقائياً — سيتم فتح تطبيق البريد لديك.'))}">
+      <h2 class="display h3" style="font-size:clamp(30px,3vw,44px);font-weight:800">{L(('Request a proposal', 'اطلب عرض سعر'))}</h2>
+      <input type="hidden" name="_subject" value="New website enquiry — Rukn Al Taqadom">
+      <input type="hidden" name="_cc" value="{EMAIL_2}">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="field"><label for="f-name">{L(('Full name', 'الاسم الكامل'))}</label><input id="f-name" name="name" required autocomplete="name"></div>
+      <div class="field"><label for="f-company">{L(('Company', 'الشركة'))}</label><input id="f-company" name="company" autocomplete="organization"></div>
+      <div class="field"><label for="f-email">{L(('Email', 'البريد الإلكتروني'))}</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="f-phone">{L(('Phone', 'رقم الجوال'))}</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" dir="ltr"></div>
+      <div class="field full"><label for="f-service">{L(('Service required', 'الخدمة المطلوبة'))}</label><select id="f-service" name="service">{opts}<option>{L(('Other / multiple', 'أخرى / متعددة'))}</option></select></div>
+      <div class="field full"><label for="f-msg">{L(('Project details', 'تفاصيل المشروع'))}</label><textarea id="f-msg" name="message" required></textarea></div>
+      <button class="btn btn-primary" type="submit">{L(('Send enquiry', 'إرسال الطلب'))} {ARROW}</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+</main>
+"""
+    return (L(("Contact — Rukn Al Taqadom Construction & Engineering, Dubai", "تواصل معنا — ركن التقدم للمقاولات والهندسة، دبي")),
+            L(("Contact Rukn Al Taqadom in Dubai for construction, fit-out and MEP enquiries.", "تواصل مع ركن التقدم في دبي لاستفسارات المقاولات والتشطيبات والأنظمة الكهروميكانيكية.")), body)
+
+
+PAGES = {
+    "index.html": page_index,
+    "about.html": page_about,
+    "services.html": page_services,
+    "projects.html": page_projects,
+    "contact.html": page_contact,
+}
+
+
+def build():
+    if DIST.exists():
+        shutil.rmtree(DIST)
+    shutil.copytree(SRC / "assets", DIST / "assets")
+    if (SRC / "admin").exists():
+        shutil.copytree(SRC / "admin", DIST / "admin")
+    for lang, out, a in (("en", DIST, ""), ("ar", DIST / "ar", "../")):
+        out.mkdir(parents=True, exist_ok=True)
+        for page, fn in PAGES.items():
+            title, desc, body = fn(lang, a)
+            html = head(lang, page, title, desc, a) + header(lang, page, a) + body + footer(lang, a)
+            (out / page).write_text(html, encoding="utf-8")
+    (DIST / ".nojekyll").write_text("")
+    (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {DOMAIN}/sitemap.xml\n")
+    urls = "".join(f"<url><loc>{DOMAIN}/{p if p != 'index.html' else ''}</loc></url><url><loc>{DOMAIN}/ar/{p if p != 'index.html' else ''}</loc></url>" for p in PAGES)
+    (DIST / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
+    print("built", sum(1 for _ in DIST.rglob("*.html")), "pages")
+
+
+if __name__ == "__main__":
+    build()
