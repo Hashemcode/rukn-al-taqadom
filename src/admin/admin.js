@@ -424,7 +424,7 @@
         <img class="side-logo" src="${IMG}logo-light.png" alt="Rukn Al Taqadom">
         <nav>${nav.map(([v, n]) => `<button class="nav-item ${S.view === v ? 'active' : ''}" data-action="nav" data-view="${v}">${esc(t(v))}${n != null ? `<span class="count">${n}</span>` : ''}</button>`).join('')}</nav>
         <div class="side-foot">${langToggle()}
-          <a class="side-link" href="../${uiLang === 'ar' ? 'ar/' : ''}" target="_blank" rel="noopener">${esc(t('viewSite'))} ↗</a>
+          <a class="side-link" href="../${uiLang === 'ar' ? '' : 'en/'}" target="_blank" rel="noopener">${esc(t('viewSite'))} ↗</a>
           <button class="side-link" data-action="logout">${esc(t('logout'))}</button>
         </div>
       </aside>

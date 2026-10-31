@@ -142,8 +142,8 @@ def tr(lang):
 
 def head(lang, page, title, desc, a):
     L = tr(lang)
-    path_en = f"{DOMAIN}/{page}" if page != "index.html" else f"{DOMAIN}/"
-    path_ar = f"{DOMAIN}/ar/{page}" if page != "index.html" else f"{DOMAIN}/ar/"
+    path_ar = f"{DOMAIN}/{page}" if page != "index.html" else f"{DOMAIN}/"
+    path_en = f"{DOMAIN}/en/{page}" if page != "index.html" else f"{DOMAIN}/en/"
     canon = path_en if lang == "en" else path_ar
     ld = {
         "@context": "https://schema.org", "@type": "GeneralContractor",
@@ -164,7 +164,7 @@ def head(lang, page, title, desc, a):
 <link rel="canonical" href="{canon}">
 <link rel="alternate" hreflang="en" href="{path_en}">
 <link rel="alternate" hreflang="ar" href="{path_ar}">
-<link rel="alternate" hreflang="x-default" href="{path_en}">
+<link rel="alternate" hreflang="x-default" href="{path_ar}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
@@ -187,7 +187,7 @@ def head(lang, page, title, desc, a):
 
 def header(lang, page, a):
     L = tr(lang)
-    other = f"{'ar/' if lang == 'en' else '../'}{page}"
+    other = f"{'en/' if lang == 'ar' else '../'}{page}"
     current = ' aria-current="page"'
     links = "".join(
         f'<li><a href="{href}"{current if href == page else ""}>{L(lbl)}</a></li>' for href, lbl in NAV)
@@ -687,15 +687,24 @@ def build():
     if (SRC / "admin").exists():
         shutil.copytree(SRC / "admin", DIST / "admin")
     make_thumbs()
-    for lang, out, a in (("en", DIST, ""), ("ar", DIST / "ar", "../")):
+    for lang, out, a in (("ar", DIST, ""), ("en", DIST / "en", "../")):
         out.mkdir(parents=True, exist_ok=True)
         for page, fn in PAGES.items():
             title, desc, body = fn(lang, a)
             html = head(lang, page, title, desc, a) + header(lang, page, a) + body + footer(lang, a)
             (out / page).write_text(html, encoding="utf-8")
     (DIST / ".nojekyll").write_text("")
+    # the site used to serve Arabic from /ar/ - keep those links alive
+    old_ar = DIST / "ar"
+    old_ar.mkdir(parents=True, exist_ok=True)
+    for page in PAGES:
+        target = f"../{page}"
+        (old_ar / page).write_text(
+            f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={target}">'
+            f'<link rel="canonical" href="{DOMAIN}/{page if page != "index.html" else ""}">'
+            f'<a href="{target}">{page}</a>', encoding="utf-8")
     (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {DOMAIN}/sitemap.xml\n")
-    urls = "".join(f"<url><loc>{DOMAIN}/{p if p != 'index.html' else ''}</loc></url><url><loc>{DOMAIN}/ar/{p if p != 'index.html' else ''}</loc></url>" for p in PAGES)
+    urls = "".join(f"<url><loc>{DOMAIN}/{p if p != 'index.html' else ''}</loc></url><url><loc>{DOMAIN}/en/{p if p != 'index.html' else ''}</loc></url>" for p in PAGES)
     (DIST / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
     print("built", sum(1 for _ in DIST.rglob("*.html")), "pages")
 
