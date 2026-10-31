@@ -5,8 +5,8 @@ an MEP, fire-protection and infrastructure contractor based in Dubai, United Ara
 
 | | |
 |---|---|
-| **Live preview** | https://hashemcode.github.io/rukn-al-taqadom/ |
-| **Arabic** | https://hashemcode.github.io/rukn-al-taqadom/ar/ |
+| **Live preview (Arabic, default)** | https://hashemcode.github.io/rukn-al-taqadom/ |
+| **English** | https://hashemcode.github.io/rukn-al-taqadom/en/ |
 | **Admin panel** | `/admin/` — built, but not connected yet (see §6) |
 | **Repository** | `Hashemcode/rukn-al-taqadom` (branch `main`) |
 | **Custom domain** | none yet |
@@ -71,11 +71,18 @@ admin-api/                   Cloudflare Worker for the admin panel (not deployed
 ```bash
 python3 build.py                 # writes dist/  (standard library only, no dependencies)
 python3 -m http.server 8770 -d dist
-# http://localhost:8770  ·  http://localhost:8770/ar/
+# http://localhost:8770 (Arabic)  ·  http://localhost:8770/en/ (English)
 ```
 
 Pushing to `main` deploys — the GitHub Action builds and publishes. Once the admin panel is
 connected, staff edits also commit to `main`, so always `git pull --rebase origin main` first.
+
+## 4a. Language layout
+
+**Arabic is the default.** It is served from the site root (`/`, `/services.html` …) and English
+from `/en/`. Canonicals, `hreflang` (`x-default` points at Arabic) and the sitemap follow that.
+The old `/ar/` paths still resolve — they redirect to the root — so previously shared links work.
+To flip it back, swap the language order in `build()` and the `other` link in `header()`.
 
 ## 5. Content model
 

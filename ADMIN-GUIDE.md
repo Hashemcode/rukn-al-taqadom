@@ -3,7 +3,9 @@
 A short guide for staff who update the website. No technical knowledge needed.
 **(النسخة العربية في الأسفل)**
 
-> **Note:** this site and the Advanced Engineering House site are **separate**. Editing a project
+> **Note:** Arabic is the site's default language (the plain address), and English sits under `/en/`.
+>
+> This site and the Advanced Engineering House site are **separate**. Editing a project
 > here does not change the other website. If a new project should appear on both, it has to be
 > added in both admin panels.
 
