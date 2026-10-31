@@ -396,7 +396,7 @@ def page_index(lang, a):
       <a class="btn btn-dark" href="about.html" style="margin-top:36px">{L(('Our story', 'قصتنا'))} {ARROW}</a>
     </div>
     <div class="statement-media reveal" data-delay="1">
-      <div class="slash-mask"><img src="{a}assets/img/{img_name(H['aboutImage'])}" alt="{L(('Engineer working on an electrical panel', 'مهندس يعمل على لوحة كهربائية'))}" loading="lazy" style="object-position:50% 34%"></div>
+      <div class="slash-mask"><img src="{a}assets/img/{img_name(H['aboutImage'])}" alt="{L(('Engineer working on an electrical panel', 'مهندس يعمل على لوحة كهربائية'))}" loading="lazy" style="object-position:50% 42%"></div>
       <div class="slash-bar"></div>
       <div class="stamp"><b data-count="2018">2018</b><span>{L(('Group operating since', 'المجموعة تعمل منذ'))}</span></div>
     </div>
