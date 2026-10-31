@@ -1,7 +1,7 @@
 # Rukn Al Taqadom — company website
 
 Bilingual (English / Arabic) website for **Rukn Al Taqadom Construction & Engineering L.L.C** —
-a construction, fit-out and MEP contractor based in Dubai, United Arab Emirates.
+an MEP, fire-protection and infrastructure contractor based in Dubai, United Arab Emirates.
 
 | | |
 |---|---|
@@ -31,11 +31,11 @@ What differs from the sister site:
 
 | | Advanced Engineering House | Rukn Al Taqadom |
 |---|---|---|
-| Positioning | MEP / engineering contractor | Main contractor: construction, fit-out, MEP |
+| Positioning | MEP / engineering contractor | MEP, fire protection & infrastructure |
 | Country | Saudi Arabia (Al Khobar) | U.A.E. (Dubai) |
 | Palette | Navy + cyan | Charcoal + bronze |
 | Display font | Archivo | Space Grotesk |
-| Services | 9 MEP disciplines | 9 construction-led trades |
+| Services | 9 MEP disciplines | 7 MEP-led trades |
 
 ## 2. How it fits together
 
@@ -53,7 +53,7 @@ content/*.json  ──►  python build.py  ──►  dist/  ──►  GitHub 
 build.py                     Static site generator (templates + page assembly)
 content/
   settings.json              Company name, phone, emails, city, address, hours, social links
-  services.json              9 construction-led trades
+  services.json              7 MEP-led trades
   projects.json              Shared group project record
   partners.json              Partner logos
   pages.json                 Page wording, banner photos, home-section switches
@@ -114,8 +114,8 @@ The sister site's `README.md` documents each of these steps in detail — the pr
 ## 7. Content provenance and accuracy
 
 Project data, partner logos and photography come from the group's company profile (Advanced
-Engineering House, 34-page edition). Service descriptions were written for this company's
-construction-led scope.
+Engineering House, 34-page edition). Service descriptions were written for this company's scope
+(MEP, fire protection, infrastructure and maintenance — no civil works or finishes).
 
 **Placeholders to replace** (in the admin panel, or in `content/settings.json`):
 

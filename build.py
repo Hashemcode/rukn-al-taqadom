@@ -396,7 +396,7 @@ def page_index(lang, a):
       <a class="btn btn-dark" href="about.html" style="margin-top:36px">{L(('Our story', 'قصتنا'))} {ARROW}</a>
     </div>
     <div class="statement-media reveal" data-delay="1">
-      <div class="slash-mask"><img src="{a}assets/img/{img_name(H['aboutImage'])}" alt="{L(('Engineer working on an electrical panel', 'مهندس يعمل على لوحة كهربائية'))}" loading="lazy" style="object-position:38% 30%"></div>
+      <div class="slash-mask"><img src="{a}assets/img/{img_name(H['aboutImage'])}" alt="{L(('Engineer working on an electrical panel', 'مهندس يعمل على لوحة كهربائية'))}" loading="lazy" style="object-position:50% 34%"></div>
       <div class="slash-bar"></div>
       <div class="stamp"><b data-count="2018">2018</b><span>{L(('Group operating since', 'المجموعة تعمل منذ'))}</span></div>
     </div>
@@ -406,8 +406,8 @@ def page_index(lang, a):
 <section class="section">
   <div class="wrap">
     <div class="sec-head">
-      <div class="reveal"><span class="eyebrow">{L(('What we do', 'ماذا نقدم'))}</span><h2 class="display h2">{L(('From foundation<br>to final finish.', 'من الأساس<br>إلى آخر تشطيب.'))}</h2></div>
-      <p class="lead reveal" data-delay="1">{L(('Concrete, finishes, air conditioning, power, water and fire protection — every trade executed in-house, so the programme answers to one team.', 'الخرسانة والتشطيبات والتكييف والطاقة والمياه والحماية من الحريق — كل تخصص يُنفَّذ داخلياً، ليبقى البرنامج الزمني مسؤولية فريق واحد.'))}</p>
+      <div class="reveal"><span class="eyebrow">{L(('What we do', 'ماذا نقدم'))}</span><h2 class="display h2">{L(('Every system<br>a building needs.', 'كل نظام<br>يحتاجه المبنى.'))}</h2></div>
+      <p class="lead reveal" data-delay="1">{L(('Air conditioning, power, water, fire protection and infrastructure — every system executed in-house, so the programme answers to one team.', 'التكييف والطاقة والمياه والحماية من الحريق والبنية التحتية — كل نظام يُنفَّذ داخلياً، ليبقى البرنامج الزمني مسؤولية فريق واحد.'))}</p>
     </div>
     <div class="disciplines">
       <ul class="disc-list">{disc_items}</ul>
@@ -466,9 +466,9 @@ def page_index(lang, a):
 """
     for key in ("showSectors", "showSteps", "showQuote", "showPartners"):
         body = re.sub(rf"<!--opt:{key}-->(.*?)<!--/opt-->", (lambda m: m.group(1)) if H.get(key, True) else "", body, flags=re.S)
-    title = L(("Rukn Al Taqadom — Construction, Fit-Out & MEP Contractor | Dubai, U.A.E.", "ركن التقدم — مقاولات البناء والتشطيبات والأنظمة الكهروميكانيكية | دبي، الإمارات"))
-    desc = L(("Dubai construction and engineering contractor. Civil works, fit-out, MEP, infrastructure and fire protection for hotels, hospitals, factories and residences across the U.A.E.",
-              "شركة مقاولات وهندسة في دبي. الأعمال المدنية والتشطيبات والأنظمة الكهروميكانيكية والبنية التحتية والحماية من الحريق للفنادق والمستشفيات والمصانع والمساكن في أنحاء الإمارات."))
+    title = L(("Rukn Al Taqadom — MEP, Fire Protection & Infrastructure Contractor | Dubai, U.A.E.", "ركن التقدم — مقاولات الأنظمة الكهروميكانيكية والحماية من الحريق والبنية التحتية | دبي، الإمارات"))
+    desc = L(("Dubai MEP and engineering contractor. Mechanical, electrical, plumbing, HVAC, firefighting, infrastructure and maintenance for hotels, hospitals, factories and residences across the U.A.E.",
+              "مقاول أنظمة كهروميكانيكية وهندسة في دبي. الأعمال الميكانيكية والكهربائية والسباكة والتكييف ومكافحة الحريق والبنية التحتية والصيانة للفنادق والمستشفيات والمصانع والمساكن في أنحاء الإمارات."))
     return title, desc, body
 
 
@@ -540,7 +540,7 @@ def page_about(lang, a):
 </main>
 """
     return (L(("About Us — Rukn Al Taqadom Construction & Engineering", "من نحن — ركن التقدم للمقاولات والهندسة")),
-            L(("Dubai-registered construction and engineering contractor, the construction arm of an engineering group operating since 2018.", "شركة مقاولات وهندسة مسجلة في دبي، وهي الذراع الإنشائي لمجموعة هندسية تعمل منذ 2018.")), body)
+            L(("Dubai-registered MEP and engineering contractor, the Emirates arm of an engineering group operating since 2018.", "مقاول أنظمة كهروميكانيكية وهندسة مسجل في دبي، وهو ذراع مجموعة هندسية تعمل منذ 2018 في الإمارات.")), body)
 
 
 def page_services(lang, a):
@@ -578,8 +578,8 @@ def page_services(lang, a):
 {cta(lang)}
 </main>
 """
-    return (L(("Services — Construction, Fit-Out, MEP & Infrastructure | Rukn Al Taqadom", "الخدمات — المقاولات والتشطيبات والأنظمة الكهروميكانيكية والبنية التحتية | ركن التقدم")),
-            L(("General construction, fit-out and finishes, MEP works, infrastructure, firefighting, electrical, HVAC, project management and maintenance.", "المقاولات العامة والتشطيبات والأعمال الكهروميكانيكية والبنية التحتية ومكافحة الحريق والكهرباء والتكييف وإدارة المشاريع والصيانة.")), body)
+    return (L(("Services — MEP, Fire Protection, Infrastructure & Maintenance | Rukn Al Taqadom", "الخدمات — الأنظمة الكهروميكانيكية والحماية من الحريق والبنية التحتية والصيانة | ركن التقدم")),
+            L(("MEP works, infrastructure and utilities, firefighting and life safety, electrical and power, HVAC and ventilation, project management and maintenance.", "الأعمال الكهروميكانيكية والبنية التحتية ومكافحة الحريق وسلامة الأرواح والكهرباء والطاقة والتكييف والتهوية وإدارة المشاريع والصيانة.")), body)
 
 
 def page_projects(lang, a):
@@ -668,7 +668,7 @@ def page_contact(lang, a):
 </main>
 """
     return (L(("Contact — Rukn Al Taqadom Construction & Engineering, Dubai", "تواصل معنا — ركن التقدم للمقاولات والهندسة، دبي")),
-            L(("Contact Rukn Al Taqadom in Dubai for construction, fit-out and MEP enquiries.", "تواصل مع ركن التقدم في دبي لاستفسارات المقاولات والتشطيبات والأنظمة الكهروميكانيكية.")), body)
+            L(("Contact Rukn Al Taqadom in Dubai for MEP, fire protection, infrastructure and maintenance enquiries.", "تواصل مع ركن التقدم في دبي لاستفسارات الأنظمة الكهروميكانيكية والحماية من الحريق والبنية التحتية والصيانة.")), body)
 
 
 PAGES = {

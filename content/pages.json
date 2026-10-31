@@ -2,26 +2,41 @@
   "home": {
     "heroImage": "p-quarter-hotel.webp",
     "heroEyebrow": {
-      "en": "Construction · Fit-out · MEP — Dubai, U.A.E.",
-      "ar": "مقاولات · تشطيبات · أنظمة كهروميكانيكية — دبي، الإمارات"
+      "en": "MEP · Fire Protection · Infrastructure — Dubai, U.A.E.",
+      "ar": "أنظمة كهروميكانيكية · حماية من الحريق · بنية تحتية — دبي، الإمارات"
     },
-    "heroLine1": { "en": "We build", "ar": "نبني" },
-    "heroLine2": { "en": "the standard", "ar": "المعيار الذي" },
-    "heroLine3": { "en": "Dubai expects", "ar": "تستحقه دبي" },
+    "heroLine1": {
+      "en": "We build",
+      "ar": "نبني"
+    },
+    "heroLine2": {
+      "en": "the standard",
+      "ar": "المعيار الذي"
+    },
+    "heroLine3": {
+      "en": "Dubai expects",
+      "ar": "تستحقه دبي"
+    },
     "heroLead": {
-      "en": "Rukn Al Taqadom delivers civil, fit-out and MEP works across the Emirates — one contractor from excavation to handover, backed by a group record of delivered hospitals, hotels, factories and residences.",
-      "ar": "تنفذ ركن التقدم الأعمال المدنية والتشطيبات والأنظمة الكهروميكانيكية في أنحاء الإمارات — مقاول واحد من الحفر حتى التسليم، مدعوماً بسجل مجموعة من المستشفيات والفنادق والمصانع والمساكن المنجزة."
+      "en": "Rukn Al Taqadom delivers mechanical, electrical, fire-protection and infrastructure works across the Emirates — one contractor from first drawing to final commissioning, backed by a group record of delivered hospitals, hotels, factories and residences.",
+      "ar": "تنفذ ركن التقدم الأعمال الميكانيكية والكهربائية وأنظمة الحماية من الحريق والبنية التحتية في أنحاء الإمارات — مقاول واحد من أول مخطط حتى التشغيل النهائي، مدعوماً بسجل مجموعة من المستشفيات والفنادق والمصانع والمساكن المنجزة."
     },
-    "aboutTitle": { "en": "One contractor.", "ar": "مقاول واحد." },
-    "aboutHighlight": { "en": "Every trade.", "ar": "كل التخصصات." },
+    "aboutTitle": {
+      "en": "One contractor.",
+      "ar": "مقاول واحد."
+    },
+    "aboutHighlight": {
+      "en": "Every trade.",
+      "ar": "كل التخصصات."
+    },
     "aboutText": [
       {
-        "en": "Rukn Al Taqadom Construction & Engineering is a Dubai-based contractor working across the United Arab Emirates, delivering structure, finishes and building services under a single contract.",
-        "ar": "ركن التقدم للمقاولات والهندسة شركة مقاولات مقرها دبي تعمل في أنحاء الإمارات العربية المتحدة، وتنفذ الهيكل والتشطيبات وخدمات المباني ضمن عقد واحد."
+        "en": "Rukn Al Taqadom Construction & Engineering is a Dubai-based contractor working across the United Arab Emirates, delivering mechanical, electrical, plumbing, fire-protection and infrastructure works under a single contract.",
+        "ar": "ركن التقدم للمقاولات والهندسة شركة مقاولات مقرها دبي تعمل في أنحاء الإمارات العربية المتحدة، وتنفذ الأعمال الميكانيكية والكهربائية والسباكة وأنظمة الحماية من الحريق والبنية التحتية ضمن عقد واحد."
       },
       {
-        "en": "We are the construction arm of the same group as Advanced Engineering House, which means our site teams draw on an engineering record built across hospitals, hotels, factories, power stations and private residences.",
-        "ar": "نحن الذراع الإنشائي للمجموعة نفسها التي تضم بيت الهندسة المتقدمة، ما يعني أن فرقنا في الموقع تستند إلى سجل هندسي بُني عبر مستشفيات وفنادق ومصانع ومحطات كهرباء ومساكن خاصة."
+        "en": "We are the Emirates arm of the same group as Advanced Engineering House, which means our site teams draw on an engineering record built across hospitals, hotels, factories, power stations and private residences.",
+        "ar": "نحن ذراع المجموعة في الإمارات، المجموعة نفسها التي تضم بيت الهندسة المتقدمة، ما يعني أن فرقنا في الموقع تستند إلى سجل هندسي بُني عبر مستشفيات وفنادق ومصانع ومحطات كهرباء ومساكن خاصة."
       },
       {
         "en": "Every client arrives with different constraints — a programme, a budget, an operating building that cannot stop. Our job is to absorb those constraints and still hand over on time.",
@@ -31,28 +46,40 @@
     "aboutImage": "engineers-site.webp",
     "steps": [
       {
-        "title": { "en": "Survey & price", "ar": "المعاينة والتسعير" },
+        "title": {
+          "en": "Survey & price",
+          "ar": "المعاينة والتسعير"
+        },
         "text": {
           "en": "We study the drawings and the site, then price the work line by line — no surprises later.",
           "ar": "ندرس المخططات والموقع، ثم نسعّر الأعمال بنداً بنداً — دون مفاجآت لاحقاً."
         }
       },
       {
-        "title": { "en": "Plan & approve", "ar": "التخطيط والاعتماد" },
+        "title": {
+          "en": "Plan & approve",
+          "ar": "التخطيط والاعتماد"
+        },
         "text": {
           "en": "Shop drawings, method statements, materials and authority approvals are settled before work starts.",
           "ar": "تُنجز المخططات التنفيذية وطرق التنفيذ والمواد واعتمادات الجهات قبل بدء العمل."
         }
       },
       {
-        "title": { "en": "Build", "ar": "التنفيذ" },
+        "title": {
+          "en": "Build",
+          "ar": "التنفيذ"
+        },
         "text": {
-          "en": "Structure, services and finishes are sequenced by one team, with quality and safety checked on site.",
-          "ar": "يُنظَّم تسلسل الهيكل والخدمات والتشطيبات بفريق واحد، مع مراقبة الجودة والسلامة في الموقع."
+          "en": "Systems are installed and sequenced by one team, with quality and safety checked on site.",
+          "ar": "تُركَّب الأنظمة ويُنظَّم تسلسلها بفريق واحد، مع مراقبة الجودة والسلامة في الموقع."
         }
       },
       {
-        "title": { "en": "Hand over & maintain", "ar": "التسليم والصيانة" },
+        "title": {
+          "en": "Hand over & maintain",
+          "ar": "التسليم والصيانة"
+        },
         "text": {
           "en": "Testing, commissioning and documentation — then a maintenance contract if you want the asset protected.",
           "ar": "الاختبار والتشغيل والتوثيق — ثم عقد صيانة إن أردت حماية الأصل."
@@ -63,7 +90,10 @@
       "en": "We would rather lose a tender than lose a client's trust on a programme we cannot hold. What we price is what we build, and what we build is what we stand behind.",
       "ar": "نفضّل خسارة مناقصة على خسارة ثقة عميل ببرنامج زمني لا نستطيع الالتزام به. ما نسعّره هو ما ننفّذه، وما ننفّذه نقف خلفه."
     },
-    "quoteBy": { "en": "Management — Rukn Al Taqadom", "ar": "الإدارة — ركن التقدم" },
+    "quoteBy": {
+      "en": "Management — Rukn Al Taqadom",
+      "ar": "الإدارة — ركن التقدم"
+    },
     "showSectors": true,
     "showSteps": true,
     "showQuote": true,
@@ -71,22 +101,34 @@
   },
   "about": {
     "heroImage": "team-future.webp",
-    "heroLine1": { "en": "The pillar of", "ar": "ركن" },
-    "heroLine2": { "en": "progress.", "ar": "التقدم." },
-    "heroLead": {
-      "en": "A Dubai contractor built on an engineering group's record — structure, finishes and services delivered by one accountable team.",
-      "ar": "مقاول في دبي قائم على سجل مجموعة هندسية — الهيكل والتشطيبات والخدمات ينفذها فريق واحد مسؤول."
+    "heroLine1": {
+      "en": "The pillar of",
+      "ar": "ركن"
     },
-    "storyTitle": { "en": "Based in Dubai.", "ar": "مقرنا دبي." },
-    "storyHighlight": { "en": "Backed by a group.", "ar": "بدعم مجموعة." },
+    "heroLine2": {
+      "en": "progress.",
+      "ar": "التقدم."
+    },
+    "heroLead": {
+      "en": "A Dubai contractor built on an engineering group's record — mechanical, electrical, fire-protection and infrastructure systems delivered by one accountable team.",
+      "ar": "مقاول في دبي قائم على سجل مجموعة هندسية — أنظمة ميكانيكية وكهربائية وحماية من الحريق وبنية تحتية ينفذها فريق واحد مسؤول."
+    },
+    "storyTitle": {
+      "en": "Based in Dubai.",
+      "ar": "مقرنا دبي."
+    },
+    "storyHighlight": {
+      "en": "Backed by a group.",
+      "ar": "بدعم مجموعة."
+    },
     "storyText": [
       {
-        "en": "Rukn Al Taqadom Construction & Engineering L.L.C is registered in Dubai and works across the United Arab Emirates as a main contractor for construction, fit-out and building services.",
-        "ar": "ركن التقدم للمقاولات والهندسة ذ.م.م شركة مسجلة في دبي وتعمل في أنحاء الإمارات العربية المتحدة كمقاول رئيسي لأعمال البناء والتشطيبات وخدمات المباني."
+        "en": "Rukn Al Taqadom Construction & Engineering L.L.C is registered in Dubai and works across the United Arab Emirates as a contractor for MEP, fire protection, infrastructure and maintenance.",
+        "ar": "ركن التقدم للمقاولات والهندسة ذ.م.م شركة مسجلة في دبي وتعمل في أنحاء الإمارات العربية المتحدة كمقاول للأنظمة الكهروميكانيكية والحماية من الحريق والبنية التحتية والصيانة."
       },
       {
-        "en": "The company is the construction arm of the group behind Advanced Engineering House, the Saudi engineering contractor established in 2018. The two companies share engineering teams, suppliers and a single project record.",
-        "ar": "الشركة هي الذراع الإنشائي للمجموعة التي تقف خلف بيت الهندسة المتقدمة، شركة المقاولات الهندسية السعودية التي تأسست عام 2018. وتتشارك الشركتان الفرق الهندسية والموردين وسجل المشاريع نفسه."
+        "en": "The company is the Emirates arm of the group behind Advanced Engineering House, the Saudi engineering contractor established in 2018. The two companies share engineering teams, suppliers and a single project record.",
+        "ar": "الشركة هي ذراع المجموعة في الإمارات، المجموعة التي تقف خلف بيت الهندسة المتقدمة، شركة المقاولات الهندسية السعودية التي تأسست عام 2018. وتتشارك الشركتان الفرق الهندسية والموردين وسجل المشاريع نفسه."
       },
       {
         "en": "That record spans hospitals, hotels, factories, power stations, fuel stations, gyms and private residences — work where the mechanical, electrical and fire systems matter as much as the walls around them.",
@@ -96,21 +138,30 @@
     "storyImage": "p-gulfcryo.webp",
     "values": [
       {
-        "title": { "en": "Hold the programme", "ar": "الالتزام بالبرنامج" },
+        "title": {
+          "en": "Hold the programme",
+          "ar": "الالتزام بالبرنامج"
+        },
         "text": {
           "en": "A handover date is a commercial commitment, not an aspiration. We sequence the work so it survives contact with the site.",
           "ar": "موعد التسليم التزام تجاري لا أمنية. ننظّم تسلسل الأعمال ليصمد أمام واقع الموقع."
         }
       },
       {
-        "title": { "en": "Price what is drawn", "ar": "نسعّر ما هو مرسوم" },
+        "title": {
+          "en": "Price what is drawn",
+          "ar": "نسعّر ما هو مرسوم"
+        },
         "text": {
           "en": "Every line of the specification is analysed before it is quoted, so the contract value holds through to completion.",
           "ar": "يُحلَّل كل بند في المواصفات قبل تسعيره، لتبقى قيمة العقد ثابتة حتى الإنجاز."
         }
       },
       {
-        "title": { "en": "Build it to be maintained", "ar": "نبني ليسهل صيانته" },
+        "title": {
+          "en": "Build it to be maintained",
+          "ar": "نبني ليسهل صيانته"
+        },
         "text": {
           "en": "Access, routing and serviceability are decided during construction, because the building has to be operated for decades.",
           "ar": "تُحسم مسارات الوصول والخدمة أثناء التنفيذ، لأن المبنى سيُشغَّل لعقود."
@@ -121,22 +172,40 @@
       "en": "Our success comes from the people on site — the engineers, supervisors and skilled crews who deliver the work every day. We are committed to giving clients the same standard on every project, current and future.",
       "ar": "نجاحنا يأتي من الأفراد في الموقع — المهندسين والمشرفين والفنيين المهرة الذين ينفذون العمل يومياً. ونلتزم بتقديم المستوى نفسه لعملائنا في كل مشروع، حالياً ومستقبلاً."
     },
-    "quoteBy": { "en": "Management — Rukn Al Taqadom", "ar": "الإدارة — ركن التقدم" },
-    "dubaiAddress": { "en": "Dubai, United Arab Emirates", "ar": "دبي، الإمارات العربية المتحدة" }
+    "quoteBy": {
+      "en": "Management — Rukn Al Taqadom",
+      "ar": "الإدارة — ركن التقدم"
+    },
+    "dubaiAddress": {
+      "en": "Dubai, United Arab Emirates",
+      "ar": "دبي، الإمارات العربية المتحدة"
+    }
   },
   "services": {
     "heroImage": "mep-pipes.webp",
-    "heroLine1": { "en": "Every trade", "ar": "كل التخصصات" },
-    "heroLine2": { "en": "under one contract.", "ar": "بعقد واحد." },
+    "heroLine1": {
+      "en": "Every trade",
+      "ar": "كل التخصصات"
+    },
+    "heroLine2": {
+      "en": "under one contract.",
+      "ar": "بعقد واحد."
+    },
     "heroLead": {
-      "en": "Civil works, fit-out, MEP, infrastructure and fire protection — executed by one contractor, so nothing falls between trades.",
-      "ar": "الأعمال المدنية والتشطيبات والأنظمة الكهروميكانيكية والبنية التحتية والحماية من الحريق — ينفذها مقاول واحد، فلا يضيع شيء بين التخصصات."
+      "en": "MEP, fire protection, infrastructure and maintenance — executed by one contractor, so nothing falls between trades.",
+      "ar": "الأنظمة الكهروميكانيكية والحماية من الحريق والبنية التحتية والصيانة — ينفذها مقاول واحد، فلا يضيع شيء بين التخصصات."
     }
   },
   "projects": {
     "heroImage": "p-kempinski.webp",
-    "heroLine1": { "en": "Delivered", "ar": "منجزة" },
-    "heroLine2": { "en": "across the Gulf.", "ar": "في أنحاء الخليج." },
+    "heroLine1": {
+      "en": "Delivered",
+      "ar": "منجزة"
+    },
+    "heroLine2": {
+      "en": "across the Gulf.",
+      "ar": "في أنحاء الخليج."
+    },
     "heroLead": {
       "en": "The project record of our group — hospitals, hotels, factories, stations and residences, executed by the engineering teams now building in the Emirates.",
       "ar": "سجل مشاريع مجموعتنا — مستشفيات وفنادق ومصانع ومحطات ومساكن، نفذتها الفرق الهندسية التي تبني اليوم في الإمارات."
@@ -144,19 +213,31 @@
   },
   "contact": {
     "heroImage": "plant-dark.webp",
-    "heroLine1": { "en": "Let's build", "ar": "لنبنِ" },
-    "heroLine2": { "en": "in the Emirates.", "ar": "في الإمارات." },
+    "heroLine1": {
+      "en": "Let's build",
+      "ar": "لنبنِ"
+    },
+    "heroLine2": {
+      "en": "in the Emirates.",
+      "ar": "في الإمارات."
+    },
     "heroLead": {
       "en": "Send us the drawings or just the idea. An engineer will come back to you within one working day.",
       "ar": "أرسل لنا المخططات أو الفكرة فقط، وسيعاود أحد مهندسينا التواصل معك خلال يوم عمل واحد."
     }
   },
   "footer": {
-    "ctaLine1": { "en": "Your next project", "ar": "مشروعك القادم" },
-    "ctaLine2": { "en": "starts here.", "ar": "يبدأ هنا." },
+    "ctaLine1": {
+      "en": "Your next project",
+      "ar": "مشروعك القادم"
+    },
+    "ctaLine2": {
+      "en": "starts here.",
+      "ar": "يبدأ هنا."
+    },
     "tagline": {
-      "en": "Construction, fit-out and MEP contracting across the United Arab Emirates — the construction arm of an engineering group operating since 2018.",
-      "ar": "مقاولات البناء والتشطيبات والأنظمة الكهروميكانيكية في أنحاء الإمارات — الذراع الإنشائي لمجموعة هندسية تعمل منذ 2018."
+      "en": "MEP, fire protection and infrastructure contracting across the United Arab Emirates — the Emirates arm of an engineering group operating since 2018.",
+      "ar": "مقاولات الأنظمة الكهروميكانيكية والحماية من الحريق والبنية التحتية في أنحاء الإمارات — ذراع مجموعة هندسية تعمل منذ 2018."
     }
   }
 }

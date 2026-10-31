@@ -1,68 +1,16 @@
 [
   {
-    "id": "construction",
-    "image": "p-quarter-hotel.webp",
-    "focus": "50% 45%",
-    "title": { "en": "General Construction", "ar": "المقاولات العامة" },
-    "tags": { "en": "Civil · Structural · Concrete", "ar": "المدني · الإنشائي · الخرسانة" },
-    "summary": {
-      "en": "Main-contract construction from excavation to handover — towers, factories, villas and commercial buildings.",
-      "ar": "مقاولات رئيسية من الحفر حتى التسليم — أبراج ومصانع وفلل ومبانٍ تجارية."
-    },
-    "paragraphs": [
-      {
-        "en": "We take buildings from an empty plot to a completed, authority-approved asset: excavation and shoring, foundations, reinforced concrete frames, blockwork and external works.",
-        "ar": "ننفذ المباني من أرض فضاء إلى منشأة مكتملة ومعتمدة من الجهات الرسمية: الحفر والتدعيم والأساسات والهياكل الخرسانية المسلحة وأعمال البلوك والأعمال الخارجية."
-      },
-      {
-        "en": "A single contract covers structure, finishes and services, so responsibility for programme, quality and safety sits with one team instead of being split between trades.",
-        "ar": "يشمل العقد الواحد الهيكل والتشطيبات والخدمات، فتبقى مسؤولية البرنامج الزمني والجودة والسلامة لدى فريق واحد بدلاً من توزيعها بين المقاولين."
-      }
-    ],
-    "points": [
-      { "en": "Excavation, shoring & foundations", "ar": "الحفر والتدعيم والأساسات" },
-      { "en": "Reinforced concrete structures", "ar": "الهياكل الخرسانية المسلحة" },
-      { "en": "Blockwork & plastering", "ar": "أعمال البلوك والتلييس" },
-      { "en": "Steel structures & roofing", "ar": "الهياكل المعدنية والأسقف" },
-      { "en": "External & site works", "ar": "الأعمال الخارجية وأعمال الموقع" },
-      { "en": "Authority approvals & handover", "ar": "اعتمادات الجهات والتسليم" }
-    ]
-  },
-  {
-    "id": "fitout",
-    "image": "p-kempinski.webp",
-    "focus": "50% 45%",
-    "title": { "en": "Fit-Out & Finishes", "ar": "التشطيبات والديكور الداخلي" },
-    "tags": { "en": "Interiors · Joinery · Turnkey", "ar": "الديكور · النجارة · تسليم مفتاح" },
-    "summary": {
-      "en": "Turnkey interiors for hotels, restaurants, offices, clinics and retail — delivered to programme.",
-      "ar": "تشطيبات داخلية متكاملة للفنادق والمطاعم والمكاتب والعيادات والمتاجر — تُسلَّم في موعدها."
-    },
-    "paragraphs": [
-      {
-        "en": "Our fit-out teams deliver complete interiors: partitions and ceilings, flooring, joinery, glazing, painting and specialist finishes, coordinated with the MEP works behind them.",
-        "ar": "تنفذ فرق التشطيبات لدينا الديكورات الداخلية كاملة: القواطع والأسقف والأرضيات والنجارة والزجاج والدهانات والتشطيبات الخاصة، بالتنسيق مع الأنظمة الكهروميكانيكية خلفها."
-      },
-      {
-        "en": "Commercial interiors live or die by the programme. We sequence finishes around services so the handover date survives contact with site reality.",
-        "ar": "نجاح التشطيبات التجارية مرهون بالبرنامج الزمني. ننظّم تسلسل التشطيبات حول الخدمات ليبقى موعد التسليم قابلاً للتحقيق على أرض الواقع."
-      }
-    ],
-    "points": [
-      { "en": "Partitions, ceilings & flooring", "ar": "القواطع والأسقف والأرضيات" },
-      { "en": "Joinery & custom millwork", "ar": "النجارة والأعمال الخشبية الخاصة" },
-      { "en": "Glazing & aluminium works", "ar": "أعمال الزجاج والألمنيوم" },
-      { "en": "Painting & decorative finishes", "ar": "الدهانات والتشطيبات الزخرفية" },
-      { "en": "Kitchens & specialist areas", "ar": "المطابخ والمناطق المتخصصة" },
-      { "en": "Snagging & handover", "ar": "معالجة الملاحظات والتسليم" }
-    ]
-  },
-  {
     "id": "mep",
     "image": "mep-pipes.webp",
     "focus": "50% 50%",
-    "title": { "en": "MEP Works", "ar": "الأعمال الكهروميكانيكية" },
-    "tags": { "en": "Mechanical · Electrical · Plumbing", "ar": "الميكانيكا · الكهرباء · السباكة" },
+    "title": {
+      "en": "MEP Works",
+      "ar": "الأعمال الكهروميكانيكية"
+    },
+    "tags": {
+      "en": "Mechanical · Electrical · Plumbing",
+      "ar": "الميكانيكا · الكهرباء · السباكة"
+    },
     "summary": {
       "en": "Full mechanical, electrical and plumbing installation — the group's founding discipline.",
       "ar": "تنفيذ متكامل للأنظمة الميكانيكية والكهربائية والسباكة — التخصص الذي قامت عليه المجموعة."
@@ -73,25 +21,49 @@
         "ar": "بدأت مجموعتنا من الأنظمة الكهروميكانيكية. نصمم ونورد ونركّب أنظمة التكييف والتهوية والطاقة والإنارة وإمداد المياه والصرف لمبانٍ بمختلف أحجامها."
       },
       {
-        "en": "Because the same group executes the structure and the services, clashes are resolved on the drawing board instead of on site.",
-        "ar": "ولأن المجموعة نفسها تنفذ الهيكل والخدمات، تُحل التعارضات على لوحة التصميم بدلاً من الموقع."
+        "en": "Because one team carries the work from approved drawings through to commissioning, clashes are resolved on the drawing board instead of on site.",
+        "ar": "ولأن فريقاً واحداً يتابع العمل من المخططات المعتمدة حتى التشغيل، تُحل التعارضات على لوحة التصميم بدلاً من الموقع."
       }
     ],
     "points": [
-      { "en": "HVAC, chillers & VRF systems", "ar": "التكييف والمبردات وأنظمة VRF" },
-      { "en": "Electrical distribution & panels", "ar": "التوزيع الكهربائي واللوحات" },
-      { "en": "Lighting & small power", "ar": "الإنارة والطاقة الصغيرة" },
-      { "en": "Water supply, drainage & pumps", "ar": "إمداد المياه والصرف والمضخات" },
-      { "en": "Ductwork & ventilation", "ar": "مجاري الهواء والتهوية" },
-      { "en": "Testing & commissioning", "ar": "الاختبار والتشغيل" }
+      {
+        "en": "HVAC, chillers & VRF systems",
+        "ar": "التكييف والمبردات وأنظمة VRF"
+      },
+      {
+        "en": "Electrical distribution & panels",
+        "ar": "التوزيع الكهربائي واللوحات"
+      },
+      {
+        "en": "Lighting & small power",
+        "ar": "الإنارة والطاقة الصغيرة"
+      },
+      {
+        "en": "Water supply, drainage & pumps",
+        "ar": "إمداد المياه والصرف والمضخات"
+      },
+      {
+        "en": "Ductwork & ventilation",
+        "ar": "مجاري الهواء والتهوية"
+      },
+      {
+        "en": "Testing & commissioning",
+        "ar": "الاختبار والتشغيل"
+      }
     ]
   },
   {
     "id": "infrastructure",
     "image": "pipework.webp",
     "focus": "50% 50%",
-    "title": { "en": "Infrastructure & Utilities", "ar": "البنية التحتية والمرافق" },
-    "tags": { "en": "Networks · Piping · Site services", "ar": "الشبكات · الأنابيب · خدمات الموقع" },
+    "title": {
+      "en": "Infrastructure & Utilities",
+      "ar": "البنية التحتية والمرافق"
+    },
+    "tags": {
+      "en": "Networks · Piping · Site services",
+      "ar": "الشبكات · الأنابيب · خدمات الموقع"
+    },
     "summary": {
       "en": "Below-ground networks that connect a development to power, water and drainage.",
       "ar": "شبكات تحت الأرض تربط المشروع بالكهرباء والمياه والصرف."
@@ -107,20 +79,44 @@
       }
     ],
     "points": [
-      { "en": "HDPE & ductile iron piping", "ar": "أنابيب HDPE والحديد المطيل" },
-      { "en": "Storm & foul drainage", "ar": "صرف الأمطار والصرف الصحي" },
-      { "en": "Pump stations & tanks", "ar": "محطات الضخ والخزانات" },
-      { "en": "Cable trenching & ducting", "ar": "خنادق الكابلات والمواسير" },
-      { "en": "Manholes & chambers", "ar": "غرف التفتيش والمناهل" },
-      { "en": "Road reinstatement", "ar": "إعادة تأهيل الطرق" }
+      {
+        "en": "HDPE & ductile iron piping",
+        "ar": "أنابيب HDPE والحديد المطيل"
+      },
+      {
+        "en": "Storm & foul drainage",
+        "ar": "صرف الأمطار والصرف الصحي"
+      },
+      {
+        "en": "Pump stations & tanks",
+        "ar": "محطات الضخ والخزانات"
+      },
+      {
+        "en": "Cable trenching & ducting",
+        "ar": "خنادق الكابلات والمواسير"
+      },
+      {
+        "en": "Manholes & chambers",
+        "ar": "غرف التفتيش والمناهل"
+      },
+      {
+        "en": "Road reinstatement",
+        "ar": "إعادة تأهيل الطرق"
+      }
     ]
   },
   {
     "id": "fire",
     "image": "fire-room.webp",
     "focus": "50% 50%",
-    "title": { "en": "Firefighting & Life Safety", "ar": "مكافحة الحريق وسلامة الأرواح" },
-    "tags": { "en": "Sprinklers · FM-200 · Alarm", "ar": "الرشاشات · FM-200 · الإنذار" },
+    "title": {
+      "en": "Firefighting & Life Safety",
+      "ar": "مكافحة الحريق وسلامة الأرواح"
+    },
+    "tags": {
+      "en": "Sprinklers · FM-200 · Alarm",
+      "ar": "الرشاشات · FM-200 · الإنذار"
+    },
     "summary": {
       "en": "Civil-defence-compliant fire protection, from sprinklers to clean-agent suppression.",
       "ar": "حماية من الحريق مطابقة لاشتراطات الدفاع المدني، من الرشاشات إلى أنظمة الإطفاء النظيفة."
@@ -136,20 +132,44 @@
       }
     ],
     "points": [
-      { "en": "Sprinkler & hose-reel networks", "ar": "شبكات الرشاشات وبكرات الخراطيم" },
-      { "en": "Fire pumps & tanks", "ar": "مضخات الحريق والخزانات" },
-      { "en": "FM-200 & clean agent systems", "ar": "أنظمة FM-200 والإطفاء النظيف" },
-      { "en": "Detection & alarm panels", "ar": "لوحات الكشف والإنذار" },
-      { "en": "Kitchen suppression", "ar": "أنظمة إطفاء المطابخ" },
-      { "en": "Civil defence approvals", "ar": "اعتمادات الدفاع المدني" }
+      {
+        "en": "Sprinkler & hose-reel networks",
+        "ar": "شبكات الرشاشات وبكرات الخراطيم"
+      },
+      {
+        "en": "Fire pumps & tanks",
+        "ar": "مضخات الحريق والخزانات"
+      },
+      {
+        "en": "FM-200 & clean agent systems",
+        "ar": "أنظمة FM-200 والإطفاء النظيف"
+      },
+      {
+        "en": "Detection & alarm panels",
+        "ar": "لوحات الكشف والإنذار"
+      },
+      {
+        "en": "Kitchen suppression",
+        "ar": "أنظمة إطفاء المطابخ"
+      },
+      {
+        "en": "Civil defence approvals",
+        "ar": "اعتمادات الدفاع المدني"
+      }
     ]
   },
   {
     "id": "electrical",
     "image": "electrical.webp",
     "focus": "40% 35%",
-    "title": { "en": "Electrical & Power", "ar": "الكهرباء والطاقة" },
-    "tags": { "en": "LV · Panels · Generators", "ar": "الجهد المنخفض · اللوحات · المولدات" },
+    "title": {
+      "en": "Electrical & Power",
+      "ar": "الكهرباء والطاقة"
+    },
+    "tags": {
+      "en": "LV · Panels · Generators",
+      "ar": "الجهد المنخفض · اللوحات · المولدات"
+    },
     "summary": {
       "en": "Power distribution, panels, lighting and standby generation, tested and certified.",
       "ar": "توزيع الطاقة واللوحات والإنارة والمولدات الاحتياطية، مع الاختبار والاعتماد."
@@ -165,20 +185,44 @@
       }
     ],
     "points": [
-      { "en": "Main & sub distribution boards", "ar": "اللوحات الرئيسية والفرعية" },
-      { "en": "Cabling, trunking & conduits", "ar": "الكابلات والمجاري والمواسير" },
-      { "en": "Internal & external lighting", "ar": "الإنارة الداخلية والخارجية" },
-      { "en": "Earthing & lightning protection", "ar": "التأريض والحماية من الصواعق" },
-      { "en": "Standby generators & changeover", "ar": "المولدات الاحتياطية ولوحات التحويل" },
-      { "en": "Testing & certification", "ar": "الاختبار والاعتماد" }
+      {
+        "en": "Main & sub distribution boards",
+        "ar": "اللوحات الرئيسية والفرعية"
+      },
+      {
+        "en": "Cabling, trunking & conduits",
+        "ar": "الكابلات والمجاري والمواسير"
+      },
+      {
+        "en": "Internal & external lighting",
+        "ar": "الإنارة الداخلية والخارجية"
+      },
+      {
+        "en": "Earthing & lightning protection",
+        "ar": "التأريض والحماية من الصواعق"
+      },
+      {
+        "en": "Standby generators & changeover",
+        "ar": "المولدات الاحتياطية ولوحات التحويل"
+      },
+      {
+        "en": "Testing & certification",
+        "ar": "الاختبار والاعتماد"
+      }
     ]
   },
   {
     "id": "hvac",
     "image": "hvac-engineer.webp",
     "focus": "70% 40%",
-    "title": { "en": "HVAC & Ventilation", "ar": "التكييف والتهوية" },
-    "tags": { "en": "Chillers · VRF · Ductwork", "ar": "المبردات · VRF · مجاري الهواء" },
+    "title": {
+      "en": "HVAC & Ventilation",
+      "ar": "التكييف والتهوية"
+    },
+    "tags": {
+      "en": "Chillers · VRF · Ductwork",
+      "ar": "المبردات · VRF · مجاري الهواء"
+    },
     "summary": {
       "en": "Air conditioning built for Gulf heat — chilled water, VRF, package units and ventilation.",
       "ar": "تكييف مصمم لحرارة الخليج — المياه المبردة وأنظمة VRF والوحدات المجمعة والتهوية."
@@ -194,20 +238,44 @@
       }
     ],
     "points": [
-      { "en": "Chilled water plants & pumps", "ar": "محطات المياه المبردة والمضخات" },
-      { "en": "VRF & split systems", "ar": "أنظمة VRF والوحدات المنفصلة" },
-      { "en": "Package & concealed units", "ar": "الوحدات المجمعة والمخفية" },
-      { "en": "Air handling & fresh air", "ar": "مناولة الهواء والهواء النقي" },
-      { "en": "Ductwork, grilles & diffusers", "ar": "مجاري الهواء والفتحات والناشرات" },
-      { "en": "Air & water balancing", "ar": "موازنة الهواء والمياه" }
+      {
+        "en": "Chilled water plants & pumps",
+        "ar": "محطات المياه المبردة والمضخات"
+      },
+      {
+        "en": "VRF & split systems",
+        "ar": "أنظمة VRF والوحدات المنفصلة"
+      },
+      {
+        "en": "Package & concealed units",
+        "ar": "الوحدات المجمعة والمخفية"
+      },
+      {
+        "en": "Air handling & fresh air",
+        "ar": "مناولة الهواء والهواء النقي"
+      },
+      {
+        "en": "Ductwork, grilles & diffusers",
+        "ar": "مجاري الهواء والفتحات والناشرات"
+      },
+      {
+        "en": "Air & water balancing",
+        "ar": "موازنة الهواء والمياه"
+      }
     ]
   },
   {
     "id": "management",
     "image": "engineers-site.webp",
     "focus": "60% 50%",
-    "title": { "en": "Project Management", "ar": "إدارة المشاريع" },
-    "tags": { "en": "Programme · Cost · Quality", "ar": "البرنامج · التكلفة · الجودة" },
+    "title": {
+      "en": "Project Management",
+      "ar": "إدارة المشاريع"
+    },
+    "tags": {
+      "en": "Programme · Cost · Quality",
+      "ar": "البرنامج · التكلفة · الجودة"
+    },
     "summary": {
       "en": "Engineers who plan, cost and control the work — not just execute it.",
       "ar": "مهندسون يخططون ويقدّرون ويضبطون العمل — لا ينفذونه فحسب."
@@ -223,20 +291,44 @@
       }
     ],
     "points": [
-      { "en": "Estimation & value engineering", "ar": "التقدير وهندسة القيمة" },
-      { "en": "Programme & resource planning", "ar": "تخطيط البرنامج والموارد" },
-      { "en": "Shop drawings & approvals", "ar": "المخططات التنفيذية والاعتمادات" },
-      { "en": "Procurement & logistics", "ar": "المشتريات والإمداد" },
-      { "en": "QA/QC & HSE on site", "ar": "ضبط الجودة والسلامة في الموقع" },
-      { "en": "Progress reporting", "ar": "تقارير التقدم" }
+      {
+        "en": "Estimation & value engineering",
+        "ar": "التقدير وهندسة القيمة"
+      },
+      {
+        "en": "Programme & resource planning",
+        "ar": "تخطيط البرنامج والموارد"
+      },
+      {
+        "en": "Shop drawings & approvals",
+        "ar": "المخططات التنفيذية والاعتمادات"
+      },
+      {
+        "en": "Procurement & logistics",
+        "ar": "المشتريات والإمداد"
+      },
+      {
+        "en": "QA/QC & HSE on site",
+        "ar": "ضبط الجودة والسلامة في الموقع"
+      },
+      {
+        "en": "Progress reporting",
+        "ar": "تقارير التقدم"
+      }
     ]
   },
   {
     "id": "maintenance",
     "image": "maintenance.webp",
     "focus": "50% 50%",
-    "title": { "en": "Maintenance & Facilities", "ar": "الصيانة وإدارة المرافق" },
-    "tags": { "en": "Planned · Reactive · Contracts", "ar": "وقائية · طارئة · عقود" },
+    "title": {
+      "en": "Maintenance & Facilities",
+      "ar": "الصيانة وإدارة المرافق"
+    },
+    "tags": {
+      "en": "Planned · Reactive · Contracts",
+      "ar": "وقائية · طارئة · عقود"
+    },
     "summary": {
       "en": "Planned and reactive maintenance that protects the asset after handover.",
       "ar": "صيانة وقائية وطارئة تحمي الأصل بعد التسليم."
@@ -252,12 +344,30 @@
       }
     ],
     "points": [
-      { "en": "Annual maintenance contracts", "ar": "عقود الصيانة السنوية" },
-      { "en": "Planned preventative visits", "ar": "زيارات الصيانة الوقائية" },
-      { "en": "Reactive call-outs", "ar": "الاستجابة للأعطال الطارئة" },
-      { "en": "System upgrades & replacement", "ar": "تحديث واستبدال الأنظمة" },
-      { "en": "Performance testing", "ar": "اختبار الأداء" },
-      { "en": "Facilities support", "ar": "دعم إدارة المرافق" }
+      {
+        "en": "Annual maintenance contracts",
+        "ar": "عقود الصيانة السنوية"
+      },
+      {
+        "en": "Planned preventative visits",
+        "ar": "زيارات الصيانة الوقائية"
+      },
+      {
+        "en": "Reactive call-outs",
+        "ar": "الاستجابة للأعطال الطارئة"
+      },
+      {
+        "en": "System upgrades & replacement",
+        "ar": "تحديث واستبدال الأنظمة"
+      },
+      {
+        "en": "Performance testing",
+        "ar": "اختبار الأداء"
+      },
+      {
+        "en": "Facilities support",
+        "ar": "دعم إدارة المرافق"
+      }
     ]
   }
 ]
